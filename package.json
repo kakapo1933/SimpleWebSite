@@ -1,0 +1,21 @@
+{
+  "name": "jko-monorepo",
+  "private": true,
+  "scripts": {
+    "build:common": "cd packages/common && pnpm build",
+    "build:frontend": "cd packages/frontend && pnpm build",
+    "build:backend": "cd packages/backend && pnpm build",
+    "build": "pnpm build:common && pnpm build:backend && pnpm build:frontend",
+    "dev:common": "cd packages/common && pnpm dev",
+    "dev:frontend": "cd packages/frontend && pnpm dev",
+    "dev:backend": "cd packages/backend && pnpm dev",
+    "dev": "concurrently \"pnpm dev:common\" \"pnpm dev:backend\" \"pnpm dev:frontend\"",
+    "prisma:generate": "cd packages/backend && pnpm prisma:generate",
+    "prisma:migrate": "cd packages/backend && pnpm prisma:migrate",
+    "prisma:studio": "cd packages/backend && pnpm prisma:studio"
+  },
+  "packageManager": "pnpm@10.6.1",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
