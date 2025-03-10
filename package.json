@@ -12,7 +12,9 @@
     "dev": "concurrently \"pnpm dev:common\" \"pnpm dev:backend\" \"pnpm dev:frontend\"",
     "prisma:generate": "cd packages/backend && pnpm prisma:generate",
     "prisma:migrate": "cd packages/backend && pnpm prisma:migrate",
-    "prisma:studio": "cd packages/backend && pnpm prisma:studio"
+    "prisma:studio": "cd packages/backend && pnpm prisma:studio",
+    "prisma:pull": "cd packages/backend && pnpm prisma:pull",
+    "mock-data:generate": "cd packages/backend && pnpm mock-data:generate"
   },
   "packageManager": "pnpm@10.6.1",
   "devDependencies": {

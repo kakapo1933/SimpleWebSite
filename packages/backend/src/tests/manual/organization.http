@@ -1,0 +1,17 @@
+### GET Organizations
+GET http://localhost:3001/api/v1/organizations?limit=5&offset=40
+
+Returns a paginated list of organizations.
+
+**Endpoint:** GET /api/organizations
+
+**Query Parameters:**
+- `limit` (optional): Number of organizations to return per page. Default: 10
+- `offset` (optional): Number of organizations to skip. Used for pagination. Default: 0
+
+**Response:**
+Returns an array of organization objects with pagination metadata.
+
+### Search Organizations
+GET http://localhost:3001/api/v1/organizations/search?searchTerm='education'&
+    similarityThreshold=0.2&limit=3

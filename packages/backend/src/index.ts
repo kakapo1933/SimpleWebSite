@@ -1,59 +1,41 @@
-import express from 'express';
-import cors from 'cors';
-import { PrismaClient } from '@prisma/client';
+import { app } from './app';
 import dotenv from 'dotenv';
-import { HealthCheckResponse } from 'common';
+import { prisma } from './models/PrismaClient';
+import { healthCheck } from "./utils/healthCheck";
 
-// Import routes
-import userRoutes from './routes/users';
+dotenv.config(); // Initialize environment variables
+const port = Number(process.env.PORT) || 3001;
 
-// Initialize environment variables
-dotenv.config();
-
-const app = express();
-const prisma = new PrismaClient();
-const port = process.env.PORT || 3001;
-
-// Middleware
-app.use(cors());
-app.use(express.json());
-
-// Routes
-app.get('/', (req, res) => {
-  res.send('API is running');
-});
-
-// Health check endpoint using shared types
-app.get('/api/health', async (req, res) => {
-  try {
-    // Simple check to see if we can query the database
-    await prisma.$queryRaw`SELECT 1`;
-    const response: HealthCheckResponse = {
-      status: 'ok',
-      message: 'Database connection successful'
-    };
-    res.json(response);
-  } catch (error) {
-    console.error('Database connection error:', error);
-    const response: HealthCheckResponse = {
-      status: 'error',
-      message: 'Database connection failed'
-    };
-    res.status(500).json(response);
-  }
-});
-
-// Use routes
-app.use('/api/users', userRoutes);
-
-// Start server
-app.listen(port, () => {
+// Start server and capture the server instance
+const server = app.listen(port, () => {
+  healthCheck(prisma).then(); // Prisma health check
   console.log(`Server running on http://localhost:${port}`);
 });
 
 // Handle shutdown gracefully
-process.on('SIGTERM', async () => {
-  console.log('SIGTERM received, shutting down gracefully');
-  await prisma.$disconnect();
-  process.exit(0);
-});
+async function shutdownGracefully(): Promise<void> {
+  console.log('Shutdown signal received, shutting down gracefully');
+
+  // Stop accepting new connections
+  server.close(async (err) => {
+    if (err) {
+      console.error('Error while closing the server:', err);
+      process.exit(1);
+    }
+
+    // Disconnect Prisma
+    try {
+      await prisma.$disconnect();
+      console.log('Prisma client disconnected');
+    }
+    catch (error) {
+      console.error('Error disconnecting Prisma client:', error);
+    }
+
+    process.exit(0);
+  });
+}
+
+// Listen for SIGTERM and SIGINT signals to initiate graceful shutdown
+process.on('SIGTERM', shutdownGracefully);
+process.on('SIGINT', shutdownGracefully);
