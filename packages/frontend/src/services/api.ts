@@ -1,33 +1,48 @@
-import { ApiResponse, User, HealthCheckResponse } from 'common';
+import { HealthCheckResponse, Organization } from 'common';
+import { buildV1RestApiUrl, fetchJson } from "../utils/http";
+import { ApiResponse, GetOrganizationsQueryParams, SearchOrganizationsQueryParams } from '../types'
 
-const API_URL = 'http://localhost:3001/api';
+// Health check
+const checkHealth = async (): Promise<HealthCheckResponse> => {
+  const apiEndpoint = buildV1RestApiUrl('/health');
+  return await fetchJson(apiEndpoint) satisfies HealthCheckResponse;
+}
+
+// Organization endpoints
+const getOrganizations = async (params?: GetOrganizationsQueryParams,
+  signal?: AbortSignal): Promise<ApiResponse<Organization>> => {
+  let apiEndpoint = buildV1RestApiUrl('/organizations');
+
+  if (params && Object.keys(params).length > 0) {
+    const searchParams = new URLSearchParams();
+    Object.entries(params).forEach(([key, value]) => {
+      searchParams.append(key, String(value));
+    });
+    apiEndpoint += `?${searchParams.toString()}`;
+    console.log(apiEndpoint);
+  }
+
+  return await fetchJson(apiEndpoint, { signal }) satisfies ApiResponse<Organization>;
+}
+
+// Search organizations
+const searchOrganizations = async (params: SearchOrganizationsQueryParams,
+  signal?: AbortSignal): Promise<ApiResponse<Organization>> => {
+  let apiEndpoint = buildV1RestApiUrl(`/organizations/search`);
+
+  if (params && Object.keys(params).length > 0) {
+    const searchParams = new URLSearchParams();
+    Object.entries(params).forEach(([key, value]) => {
+      searchParams.append(key, String(value));
+    });
+    apiEndpoint += `?${searchParams.toString()}`;
+    console.log(apiEndpoint);
+  }
+  return await fetchJson(apiEndpoint, { signal }) satisfies ApiResponse<Organization>;
+};
 
 export const apiService = {
-  // Health check
-  checkHealth: async (): Promise<HealthCheckResponse> => {
-    const response = await fetch(`${API_URL}/health`);
-    return response.json() as Promise<HealthCheckResponse>;
-  },
-
-  // User endpoints
-  getUsers: async (): Promise<ApiResponse<User[]>> => {
-    const response = await fetch(`${API_URL}/users`);
-    return response.json() as Promise<ApiResponse<User[]>>;
-  },
-
-  getUser: async (id: string): Promise<ApiResponse<User>> => {
-    const response = await fetch(`${API_URL}/users/${id}`);
-    return response.json() as Promise<ApiResponse<User>>;
-  },
-
-  createUser: async (userData: { email: string; name: string }): Promise<ApiResponse<User>> => {
-    const response = await fetch(`${API_URL}/users`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-    });
-    return response.json() as Promise<ApiResponse<User>>;
-  }
+  checkHealth,
+  getOrganizations,
+  searchOrganizations
 };

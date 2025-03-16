@@ -53,6 +53,11 @@ packages/
    pnpm mock-data:generate
    ```
 
+5. Build packages/common
+   ```bash
+      pnpm build:common
+   ```
+
 ## Development
 
 Run all services in development mode:

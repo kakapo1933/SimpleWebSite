@@ -32,7 +32,7 @@ coverage/
 
 # Prisma
 packages/backend/prisma/*.db
-packages/backend/prisma/migrations/
+packages/backend/src/models/migrations/
 
 # Vite
 packages/frontend/*.local
