@@ -61,30 +61,36 @@ const DonationPage: React.FC = () => {
     })))
   }, [searchResults]);
 
-  return (<div className="flex flex-col max-w-md w-full h-full bg-gray-50">
-    <div className="flex justify-center items-center h-15 bg-white shadow-md">
-      <SearchBar onSearch={setSearchQuery} getClick={setIsSearching}/>
+  return (
+    <div className="flex flex-col max-w-md w-full h-full bg-gray-50 overflow-hidden">
+      <div className="flex justify-center items-center h-15 bg-white shadow-md flex-shrink-0">
+        <SearchBar onSearch={setSearchQuery} getClick={setIsSearching}/>
+      </div>
+      <div className='flex-1 overflow-hidden'>
+        {!isSearching ? (
+          <List
+            items={items}
+            loading={loading}
+            ItemComponent={Card}
+          >
+            <div ref={loaderRef} className="flex py-4">
+              {loading ? 'Loading...' : 'Scroll down to load more'}
+            </div>
+          </List>
+        ) : (
+          <List
+            items={searchItems}
+            loading={searchLoading}
+            ItemComponent={Card}
+          >
+            <div ref={loaderRef} className="flex py-4">
+              {loading ? 'Loading...' : 'Scroll down to load more'}
+            </div>
+          </List>
+        )}
+      </div>
     </div>
-    <div className='flex flex-col justify-start items-center h-full overflow-y-scroll'>
-      {!isSearching ? (<List
-        items={items}
-        loading={loading}
-        ItemComponent={Card}
-      >
-        <div ref={loaderRef} className="flex py-4">
-          {loading ? 'Loading...' : 'Scroll down to load more'}
-        </div>
-      </List>) : (<List
-        items={searchItems}
-        loading={searchLoading}
-        ItemComponent={Card}
-      >
-        <div ref={loaderRef} className="flex py-4">
-          {loading ? 'Loading...' : 'Scroll down to load more'}
-        </div>
-      </List>)}
-    </div>
-  </div>);
+  );
 };
 
 export { DonationPage };
