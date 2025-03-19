@@ -1,45 +1,49 @@
 import { HealthCheckResponse, Organization } from 'common';
-import { buildV1RestApiUrl, fetchJson } from "../utils/http";
-import { ApiResponse, GetOrganizationsQueryParams, SearchOrganizationsQueryParams } from '../types'
+import {  buildV1RestApiUrl, fetchJson, apiRequest } from "../utils/http";
+import { ApiResponse, GetOrganizationsQueryParams, SearchOrganizationsQueryParams } from '../types';
 
-// Health check
-const checkHealth = async (): Promise<HealthCheckResponse> => {
-  const apiEndpoint = buildV1RestApiUrl('/health');
-  return await fetchJson(apiEndpoint) satisfies HealthCheckResponse;
+/**
+ * Checks the health status of the API
+ * 
+ * @returns Promise resolving to the health check response
+ */
+async function checkHealth(): Promise<HealthCheckResponse> {
+  return await fetchJson<HealthCheckResponse>(buildV1RestApiUrl('/health'));
 }
 
-// Organization endpoints
-const getOrganizations = async (params?: GetOrganizationsQueryParams,
-  signal?: AbortSignal): Promise<ApiResponse<Organization>> => {
-  let apiEndpoint = buildV1RestApiUrl('/organizations');
-
-  if (params && Object.keys(params).length > 0) {
-    const searchParams = new URLSearchParams();
-    Object.entries(params).forEach(([key, value]) => {
-      searchParams.append(key, String(value));
-    });
-    apiEndpoint += `?${searchParams.toString()}`;
-    console.log(apiEndpoint);
-  }
-
-  return await fetchJson(apiEndpoint, { signal }) satisfies ApiResponse<Organization>;
+/**
+ * Fetches organizations with optional pagination parameters
+ * 
+ * @param params - Optional pagination parameters (limit, offset)
+ * @param signal - Optional AbortSignal for request cancellation
+ * @returns Promise resolving to organizations API response
+ */
+async function getOrganizations(
+  params?: GetOrganizationsQueryParams,
+  signal?: AbortSignal
+): Promise<ApiResponse<Organization>> {
+  return await apiRequest<Organization, GetOrganizationsQueryParams>(
+    '/organizations', 
+    { params, signal }
+  );
 }
 
-// Search organizations
-const searchOrganizations = async (params: SearchOrganizationsQueryParams,
-  signal?: AbortSignal): Promise<ApiResponse<Organization>> => {
-  let apiEndpoint = buildV1RestApiUrl(`/organizations/search`);
-
-  if (params && Object.keys(params).length > 0) {
-    const searchParams = new URLSearchParams();
-    Object.entries(params).forEach(([key, value]) => {
-      searchParams.append(key, String(value));
-    });
-    apiEndpoint += `?${searchParams.toString()}`;
-    console.log(apiEndpoint);
-  }
-  return await fetchJson(apiEndpoint, { signal }) satisfies ApiResponse<Organization>;
-};
+/**
+ * Searches organizations based on search criteria
+ * 
+ * @param params - Search parameters including searchTerm
+ * @param signal - Optional AbortSignal for request cancellation
+ * @returns Promise resolving to matching organizations
+ */
+async function searchOrganizations(
+  params: SearchOrganizationsQueryParams,
+  signal?: AbortSignal
+): Promise<ApiResponse<Organization>> {
+  return await apiRequest<Organization, SearchOrganizationsQueryParams>(
+    '/organizations/search', 
+    { params, signal }
+  );
+}
 
 export const apiService = {
   checkHealth,

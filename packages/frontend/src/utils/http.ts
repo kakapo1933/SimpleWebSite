@@ -1,3 +1,5 @@
+import { ApiResponse } from "../types";
+
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 if (!BASE_URL) {
@@ -42,3 +44,82 @@ const buildV1RestApiUrl = (endpoint: string): string => {
 };
 
 export { fetchJson, buildV1RestApiUrl };
+
+/**
+ * Configuration options for API requests
+ */
+export interface RequestOptions<T extends QueryParams> {
+  signal?: AbortSignal;
+  params?: T;
+}
+
+/**
+ * Generic API request function with improved error handling
+ *
+ * @param endpoint - API endpoint path
+ * @param options - Request options including signal and query parameters
+ * @returns Promise resolving to the API response
+ * @throws Error with detailed message if the request fails
+ */
+export async function apiRequest<T, P extends QueryParams = QueryParams>(
+  endpoint: string,
+  options?: RequestOptions<P>
+): Promise<ApiResponse<T>> {
+  try {
+    const url = buildV1RestApiUrl(endpoint);
+    const fullUrl = options?.params
+      ? buildUrlWithQueryParams(url, options.params)
+      : url;
+
+    return await fetchJson<ApiResponse<T>>(fullUrl, { signal: options?.signal });
+  } catch (error) {
+    // Enhanced error handling with more context
+    const errorMessage = error instanceof Error
+      ? error.message
+      : 'Unknown error occurred';
+
+    throw new Error(`API request to ${endpoint} failed: ${errorMessage}`);
+  }
+}
+
+/**
+ * Type for values that can be converted to strings for URL parameters
+ */
+type QueryParamValue = string | number | boolean | null | undefined;
+/**
+ * Type-safe definition for objects that can be used as query parameters
+ */
+export type QueryParams = Record<string, QueryParamValue>;
+
+
+
+/**
+ * Builds a URL with query parameters
+ *
+ * @param baseUrl - Base URL without query parameters
+ * @param params - Object containing query parameters
+ * @returns Complete URL with query parameters
+ */
+export function buildUrlWithQueryParams<T extends QueryParams>(baseUrl: string, params?: T): string {
+  // Return the base URL if there are no params or params is empty
+  if (!params || Object.keys(params).length === 0) {
+    return baseUrl;
+  }
+
+  // Create a URLSearchParams object and populate it
+  const searchParams = new URLSearchParams();
+  Object.entries(params).forEach(([key, value]) => {
+    // Skip undefined or null values
+    if (value !== undefined && value !== null) {
+      searchParams.append(key, String(value));
+    }
+  });
+
+  // Only append the query string if there are parameters
+  const queryString = searchParams.toString();
+  if (queryString) {
+    return `${baseUrl}?${queryString}`;
+  }
+
+  return baseUrl;
+}
