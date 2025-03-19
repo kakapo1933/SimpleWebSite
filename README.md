@@ -55,7 +55,7 @@ packages/
 
 5. Build packages/common
    ```bash
-      pnpm build:common
+   pnpm build:common
    ```
 
 ## Development

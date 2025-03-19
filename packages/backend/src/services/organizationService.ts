@@ -4,11 +4,11 @@ import { organizations } from "@prisma/client"
 /**
  * Retrieves a list of organizations from the database with a specified limit and offset.
  *
- * @param {string} limit - The maximum number of organizations to retrieve. Defaults to 10.
- * @param {string} offset - The number of organizations to skip before starting to retrieve. Defaults to 0.
+ * @param {number} limit - The maximum number of organizations to retrieve. Defaults to 10.
+ * @param {number} offset - The number of organizations to skip before starting to retrieve. Defaults to 0.
  * @return {Promise<Array<organizations>>} A promise that resolves to an array of organization records.
  */
-async function getOrganizations(limit: string = '10', offset: string = '0'): Promise<Array<organizations>> {
+async function getOrganizations(limit: number = 10, offset: number = 0): Promise<Array<organizations>> {
   return await OrganizationRepository.getOrganizations(limit, offset);
 }
 
@@ -18,8 +18,8 @@ async function getOrganizations(limit: string = '10', offset: string = '0'): Pro
  * using similarity thresholds and pagination parameters.
  *
  * @param {string} searchTerm - The search term used to match organization names or tax IDs.
- * @param {string} [similarityThreshold] - The minimum similarity score required for a match.
- * @param {string} [pageSize] - The maximum number of organizations to retrieve per page.
+ * @param {number} [similarityThreshold] - The minimum similarity score required for a match.
+ * @param {number} [pageSize] - The maximum number of organizations to retrieve per page.
  * @return {Promise<Array<organizations>>} A promise that resolves to an array of organizations matching the search criteria.
  */
 async function searchOrganizations(searchTerm: string,

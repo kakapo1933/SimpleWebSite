@@ -1,17 +1,17 @@
-import { organizations } from '@prisma/client';
 import { prisma } from '../models/PrismaClient';
+import type { organizations } from '@prisma/client';
 
 /**
  * Retrieves a list of organizations with pagination support.
  *
- * @param {string} limit - The maximum number of organizations to retrieve.
- * @param {string} offset - The number of organizations to skip before starting to collect the result set.
+ * @param {number} limit - The maximum number of organizations to retrieve.
+ * @param {number} offset - The number of organizations to skip before starting to collect the result set.
  * @returns {Promise<Array<organizations>>} A promise that resolves to an array of organizations.
  */
-const getOrganizations = async (limit: string, offset: string): Promise<Array<organizations>> => {
+const getOrganizations = async (limit: number, offset: number): Promise<Array<organizations>> => {
   return await prisma.organizations.findMany({
-    take: parseInt(limit, 10),
-    skip: parseInt(offset, 10)
+    take: limit,
+    skip: offset,
   });
 }
 
