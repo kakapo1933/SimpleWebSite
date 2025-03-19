@@ -1,4 +1,4 @@
-# JKO Assignment
+# Simple website
 
 A monorepo project containing frontend, backend, and common shared code.
 
