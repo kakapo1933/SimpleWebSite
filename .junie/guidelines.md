@@ -2,7 +2,7 @@
 
 **Important**: strictly follow the instructions below:
 
-- First, before starting any work, create a new git branch. (YOU MUST CREATE NEW BRANCH).
+- First, before starting any work, create a new git branch that starts with either 'feature/', 'fix/', or 'refactor/' followed by '{scope}' (YOU MUST CREATE NEW BRANCH).
 - Write down the time stamp of the session start (timestamp format: yyyy-MM-dd_hh-mm).
 - Before generating any code, always generate a plan-{timestamp}.md file.
 - Use the plan-{timestamp}.md file as an input to generate the detailed enumerated task list.
