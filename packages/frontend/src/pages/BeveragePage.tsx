@@ -306,8 +306,6 @@ const BeveragePage: React.FC = () => {
       <CartModal
         show={showCart}
         onClose={() => setShowCart(false)}
-        cartItems={cartItems}
-        setCartItems={setCartItems}
       />
       {/* Group Order Modal */}
       <GroupOrderModal
