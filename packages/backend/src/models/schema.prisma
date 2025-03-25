@@ -25,3 +25,84 @@ model organizations {
   @@index([name(ops: raw("gin_trgm_ops"))], map: "organizations_name_trgm_idx", type: Gin)
   @@index([tax_id(ops: raw("gin_trgm_ops"))], map: "organizations_tax_id_trgm_idx", type: Gin)
 }
+
+model BeverageCategory {
+  id          Int        @id @default(autoincrement())
+  name        String     @db.VarChar(100)
+  description String?
+  imageUrl    String?    @db.VarChar(255)
+  beverages   Beverage[]
+}
+
+model Beverage {
+  id              Int                  @id @default(autoincrement())
+  name            String               @db.VarChar(100)
+  description     String?
+  price           Decimal              @db.Decimal(10, 2)
+  imageUrl        String?              @db.VarChar(255)
+  isPopular       Boolean              @default(false)
+  isNew           Boolean              @default(false)
+  categoryId      Int
+  category        BeverageCategory     @relation(fields: [categoryId], references: [id])
+  customizations  BeverageCustomization[]
+  orderItems      OrderItem[]
+}
+
+model BeverageCustomization {
+  id          Int       @id @default(autoincrement())
+  name        String    @db.VarChar(100)
+  type        String    @db.VarChar(50) // e.g., "size", "temperature", "sweetness", "ice", "add-in"
+  options     Json      // Array of options with prices
+  beverageId  Int
+  beverage    Beverage  @relation(fields: [beverageId], references: [id])
+}
+
+model Order {
+  id              Int           @id @default(autoincrement())
+  customerName    String?       @db.VarChar(100)
+  customerEmail   String?       @db.VarChar(100)
+  customerPhone   String?       @db.VarChar(20)
+  status          String        @default("pending") @db.VarChar(20)
+  totalAmount     Decimal       @db.Decimal(10, 2)
+  paymentMethod   String?       @db.VarChar(50)
+  paymentStatus   String        @default("unpaid") @db.VarChar(20)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  items           OrderItem[]
+  groupOrderId    Int?
+  groupOrder      GroupOrder?   @relation(fields: [groupOrderId], references: [id])
+}
+
+model OrderItem {
+  id              Int       @id @default(autoincrement())
+  orderId         Int
+  order           Order     @relation(fields: [orderId], references: [id])
+  beverageId      Int
+  beverage        Beverage  @relation(fields: [beverageId], references: [id])
+  quantity        Int
+  price           Decimal   @db.Decimal(10, 2)
+  customizations  Json?     // Stored customization selections
+  notes           String?
+}
+
+model GroupOrder {
+  id              Int       @id @default(autoincrement())
+  name            String    @db.VarChar(100)
+  shareCode       String    @unique @db.VarChar(20)
+  creatorName     String    @db.VarChar(100)
+  expiresAt       DateTime
+  status          String    @default("active") @db.VarChar(20)
+  createdAt       DateTime  @default(now())
+  orders          Order[]
+}
+
+model CartItem {
+  id              String    @id @default(uuid())
+  sessionId       String    @db.VarChar(100)
+  beverageId      Int
+  quantity        Int
+  customizations  Json?
+  notes           String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}

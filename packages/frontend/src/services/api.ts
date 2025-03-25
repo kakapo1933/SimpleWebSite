@@ -1,5 +1,5 @@
 import { HealthCheckResponse, Organization } from 'common';
-import {  buildV1RestApiUrl, fetchJson, apiRequest } from "../utils/http";
+import {  buildV1RestApiUrl, fetchJson, apiRequestV1 } from "../utils/http";
 import { ApiResponse, GetOrganizationsQueryParams, SearchOrganizationsQueryParams } from '../types';
 
 /**
@@ -22,7 +22,7 @@ async function getOrganizations(
   params?: GetOrganizationsQueryParams,
   signal?: AbortSignal
 ): Promise<ApiResponse<Organization>> {
-  return await apiRequest<Organization, GetOrganizationsQueryParams>(
+  return await apiRequestV1<Organization, GetOrganizationsQueryParams>(
     '/organizations', 
     { params, signal }
   );
@@ -39,7 +39,7 @@ async function searchOrganizations(
   params: SearchOrganizationsQueryParams,
   signal?: AbortSignal
 ): Promise<ApiResponse<Organization>> {
-  return await apiRequest<Organization, SearchOrganizationsQueryParams>(
+  return await apiRequestV1<Organization, SearchOrganizationsQueryParams>(
     '/organizations/search', 
     { params, signal }
   );

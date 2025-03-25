@@ -14,6 +14,8 @@
     "prisma:pull": "prisma db pull --schema=./src/models/schema.prisma",
     "prisma:push": "prisma db push --schema=./src/models/schema.prisma",
     "mock-data:generate": "ts-node scripts/generateNGO.ts",
+    "mock-data:generate-beverage": "ts-node scripts/generateBeverageData.ts",
+    "mock-data:generate-all": "npm run mock-data:generate && npm run mock-data:generate-beverage",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

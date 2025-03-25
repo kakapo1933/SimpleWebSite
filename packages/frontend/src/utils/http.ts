@@ -46,6 +46,15 @@ const buildV1RestApiUrl = (endpoint: string): string => {
 export { fetchJson, buildV1RestApiUrl };
 
 /**
+ * Type for values that can be converted to strings for URL parameters
+ */
+type QueryParamValue = string | number | boolean | null | undefined;
+/**
+ * Type-safe definition for objects that can be used as query parameters
+ */
+export type QueryParams = Record<string, QueryParamValue>;
+
+/**
  * Configuration options for API requests
  */
 export interface RequestOptions<T extends QueryParams> {
@@ -61,7 +70,7 @@ export interface RequestOptions<T extends QueryParams> {
  * @returns Promise resolving to the API response
  * @throws Error with detailed message if the request fails
  */
-export async function apiRequest<T, P extends QueryParams = QueryParams>(
+export async function apiRequestV1<T, P extends QueryParams = QueryParams>(
   endpoint: string,
   options?: RequestOptions<P>
 ): Promise<ApiResponse<T>> {
@@ -81,17 +90,6 @@ export async function apiRequest<T, P extends QueryParams = QueryParams>(
     throw new Error(`API request to ${endpoint} failed: ${errorMessage}`);
   }
 }
-
-/**
- * Type for values that can be converted to strings for URL parameters
- */
-type QueryParamValue = string | number | boolean | null | undefined;
-/**
- * Type-safe definition for objects that can be used as query parameters
- */
-export type QueryParams = Record<string, QueryParamValue>;
-
-
 
 /**
  * Builds a URL with query parameters

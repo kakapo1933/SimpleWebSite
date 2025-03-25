@@ -15,7 +15,9 @@
     "prisma:migrate": "cd packages/backend && pnpm prisma:migrate",
     "prisma:studio": "cd packages/backend && pnpm prisma:studio",
     "prisma:pull": "cd packages/backend && pnpm prisma:pull",
-    "mock-data:generate": "cd packages/backend && pnpm mock-data:generate"
+    "mock-data:generate": "cd packages/backend && pnpm mock-data:generate",
+    "mock-data:generate-beverage": "cd packages/backend && pnpm mock-data:generate-beverage",
+    "mock-data:generate-all": "cd packages/backend && pnpm mock-data:generate-all"
   },
   "packageManager": "pnpm@10.6.1",
   "devDependencies": {

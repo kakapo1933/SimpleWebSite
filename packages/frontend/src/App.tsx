@@ -1,11 +1,11 @@
 import { BrowserRouter as Router, Link, Navigate, Route, Routes } from 'react-router-dom';
 import { DonationPage } from './pages/DonationPage.tsx';
+import BeveragePage from './pages/BeveragePage';
 import { useTranslation } from 'react-i18next';
 
 function App() {
   const { t } = useTranslation(); // i18n hook
 
-  // TODO Add homepage
   return (<Router>
     <div className="flex flex-col w-full h-full items-center bg-zinc-200">
       {/*<LanguageSwitcher/>*/}
@@ -16,6 +16,9 @@ function App() {
           {/*</li>*/}
           <li>
             <Link to="/donations" className="hover:text-indigo-200">{t('donationPage')}</Link>
+          </li>
+          <li>
+            <Link to="/beverages" className="hover:text-indigo-200">Beverages</Link>
           </li>
         </ul>
       </nav>
@@ -30,8 +33,9 @@ function App() {
         {/*    </div>)}*/}
         {/*  </div>}/>*/}
         {/**/}
-        <Route path="/" element={<Navigate to="/donations"/>}/>
+        <Route path="/" element={<Navigate to="/beverages"/>}/>
         <Route path="/donations" element={<DonationPage/>}/>
+        <Route path="/beverages" element={<BeveragePage/>}/>
       </Routes>
 
       <p className="text-gray-500 text-center">Kaipo Chen</p>
