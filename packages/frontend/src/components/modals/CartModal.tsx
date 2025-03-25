@@ -11,6 +11,13 @@ interface CartModalProps {
 const CartModal: React.FC<CartModalProps> = ({ show, onClose, onCartUpdate }) => {
   const { cartItems, isLoading, error, fetchCartItems, removeFromCart, clearCart } = useCart();
 
+  const handleRemoveFromCart = async (itemId: string) => {
+    await removeFromCart(itemId);
+    if (onCartUpdate) {
+      onCartUpdate();
+    }
+  };
+
   const handleClearCart = async () => {
     await clearCart();
     if (onCartUpdate) {
@@ -75,7 +82,7 @@ const CartModal: React.FC<CartModalProps> = ({ show, onClose, onCartUpdate }) =>
                 <CartItem 
                   key={item.id} 
                   item={item} 
-                  onRemove={removeFromCart} 
+                  onRemove={handleRemoveFromCart} 
                   isLoading={isLoading} 
                 />
               ))}
