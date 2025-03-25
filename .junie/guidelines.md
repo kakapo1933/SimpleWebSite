@@ -12,7 +12,7 @@
 - Run all unit tests to ensure they pass.
 - Address any test failures before committing.
 - Update README files if necessary.
-- All the work should be committed to the branch upon completion, except the tasks-{timestamp}.md file.
+- All the work should be committed to the branch upon completion, except the 'tasks','plan'-{timestamp}.md file.
 
 # SimpleWebSite Project Guidelines
 
