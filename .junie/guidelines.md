@@ -4,9 +4,9 @@
 
 - First, before starting any work, create a new git branch that starts with either 'feature/', 'fix/', or 'refactor/' followed by '{scope}' (YOU MUST CREATE NEW BRANCH).
 - Write down the time stamp of the session start (timestamp format: yyyy-MM-dd_hh-mm).
-- Before generating any code, always generate a plan-{timestamp}.md file.
+- Before generating any code, always generate a plan-{timestamp}.md file in the plans folder.
 - Use the plan-{timestamp}.md file as an input to generate the detailed enumerated task list.
-- Store the task list to tasks-{timestamp}.md file.
+- Store the task list in a tasks-{timestamp}.md file and place it in the tasks folder.
 - Do the work that was submitted with user prompt.
 - After each task is done, mark it as completed in the tasks-{timestamp}.md file.
 - Run all unit tests to ensure they pass.
