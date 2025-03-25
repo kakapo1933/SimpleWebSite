@@ -5,10 +5,18 @@ import { useCart } from '../../hooks/useCart';
 interface CartModalProps {
   show: boolean;
   onClose: () => void;
+  onCartUpdate?: () => void;
 }
 
-const CartModal: React.FC<CartModalProps> = ({ show, onClose }) => {
+const CartModal: React.FC<CartModalProps> = ({ show, onClose, onCartUpdate }) => {
   const { cartItems, isLoading, error, fetchCartItems, removeFromCart, clearCart } = useCart();
+
+  const handleClearCart = async () => {
+    await clearCart();
+    if (onCartUpdate) {
+      onCartUpdate();
+    }
+  };
 
   useEffect(() => {
     if (show) {
@@ -75,7 +83,7 @@ const CartModal: React.FC<CartModalProps> = ({ show, onClose }) => {
               <CartSummary cartItems={cartItems} />
 
               <CartActions 
-                onClearCart={clearCart} 
+                onClearCart={handleClearCart} 
                 onCheckout={handleCheckout} 
                 isLoading={isLoading} 
               />

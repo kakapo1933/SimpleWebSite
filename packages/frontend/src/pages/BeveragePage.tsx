@@ -155,6 +155,18 @@ const BeveragePage: React.FC = () => {
     }
   };
 
+  // Handle cart update
+  const handleCartUpdate = async () => {
+    try {
+      const cartResponse = await beverageApiService.getCartItems();
+      if (cartResponse.success && cartResponse.data) {
+        setCartItems(cartResponse.data);
+      }
+    } catch (err) {
+      console.error('Error updating cart items:', err);
+    }
+  };
+
   // Render loading state
   if (loading && categories.length === 0) {
     return (
@@ -306,6 +318,7 @@ const BeveragePage: React.FC = () => {
       <CartModal
         show={showCart}
         onClose={() => setShowCart(false)}
+        onCartUpdate={handleCartUpdate}
       />
       {/* Group Order Modal */}
       <GroupOrderModal
