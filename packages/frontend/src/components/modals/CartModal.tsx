@@ -92,6 +92,7 @@ const CartModal: React.FC<CartModalProps> = ({ show, onClose, onCartUpdate }) =>
               <CartActions 
                 onClearCart={handleClearCart} 
                 onCheckout={handleCheckout} 
+                onContinueShopping={onClose}
                 isLoading={isLoading} 
               />
             </>
