@@ -9,6 +9,7 @@ export type SearchOrganizationsQueryParams = {
   searchTerm: string;
   similarityThreshold?: number;
   limit?: number;
+  offset?: number;
 };
 
 export interface UseOrganizationsResult {
@@ -19,4 +20,6 @@ export interface UseOrganizationsResult {
 export interface UseSearchOrganizationsResult {
   organizations: Organization[];
   loading: boolean;
+  hasMore: boolean;
+  loadMore: () => void;
 }

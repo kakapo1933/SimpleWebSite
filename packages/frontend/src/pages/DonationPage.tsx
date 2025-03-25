@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { Organization } from 'common';
 import { SearchBar } from '../components/common/SearchBar';
 import { List, ListContent } from '../components/common/List';
 import { useFetchOrganizations } from "../hooks/useFetchOrganizations.ts";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll.tsx";
 import { Card } from "../components/common/Card.tsx";
 import { useSearchOrganizations } from "../hooks/useSearchOrganizations.tsx";
+import { DonationModal } from "../components/modals/DonationModal";
+import { donationService, DonationRequest } from "../services/donationService";
+import { toast } from 'react-hot-toast';
 
 const DonationPage: React.FC = () => {
   const PAGE_SIZE = 10;
@@ -13,27 +17,80 @@ const DonationPage: React.FC = () => {
   const [hasMore, setHasMore] = useState<boolean>(true);
   const [items, setItems] = useState<ListContent[]>([]);
   const [isSearching, setIsSearching] = useState<boolean>(false);
-  const [searchItems, setSearchItems] = useState<ListContent[]>([])
+  const [searchItems, setSearchItems] = useState<ListContent[]>([]);
+
+  // Donation modal state
+  const [selectedOrganization, setSelectedOrganization] = useState<Organization | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const {
     organizations,
     loading,
   } = useFetchOrganizations(PAGE_SIZE, page * PAGE_SIZE)
 
-  // TODO Prevent the API request from useSearchOrganizations on initialization
+  // Using the updated useSearchOrganizations hook with infinite scrolling
   const {
     organizations: searchResults,
     loading: searchLoading,
-  } = useSearchOrganizations(searchQuery)
+    hasMore: searchHasMore,
+    loadMore: loadMoreSearchResults
+  } = useSearchOrganizations(searchQuery, undefined, PAGE_SIZE, isSearching ? page * PAGE_SIZE : 0)
 
-  const loadMore = () => {
-    if (!hasMore) return;
-    setPage(prevPage => prevPage + 1);
+  // Handle loading more items based on whether we're searching or not
+  const handleLoadMore = () => {
+    if (isSearching) {
+      if (!searchHasMore) return;
+      loadMoreSearchResults();
+      setPage(prevPage => prevPage + 1);
+    } else {
+      if (!hasMore) return;
+      setPage(prevPage => prevPage + 1);
+    }
   }
 
-  //TODO Add infinite scroll for search results
+  // Handle opening the donation modal
+  const handleOpenDonationModal = (item: ListContent) => {
+    // Find the full organization object from either the regular or search results
+    const orgList = isSearching ? searchResults : organizations;
+    const org = orgList.find(o => o.id.toString() === item.id.toString());
 
-  const loaderRef = useInfiniteScroll(loadMore);
+    if (org) {
+      setSelectedOrganization(org);
+      setIsModalOpen(true);
+    } else {
+      console.error('Organization not found:', item.id);
+    }
+  }
+
+  // Handle donation submission
+  const handleDonateSubmit = async (amount: number, donorInfo: any) => {
+    if (!selectedOrganization) return;
+
+    try {
+      const donationRequest: DonationRequest = {
+        organizationId: selectedOrganization.id,
+        amount,
+        donorName: donorInfo.name,
+        donorEmail: donorInfo.email,
+        donorPhone: donorInfo.phone,
+        paymentMethod: donorInfo.paymentMethod
+      };
+
+      const response = await donationService.createDonation(donationRequest);
+
+      // Show success message
+      toast.success(`Thank you for your donation of $${amount} to ${selectedOrganization.name}!`);
+
+      return response;
+    } catch (error) {
+      console.error('Donation error:', error);
+      toast.error('Failed to process donation. Please try again.');
+      throw error;
+    }
+  }
+
+  // Use the infinite scroll hook with our handleLoadMore function
+  const loaderRef = useInfiniteScroll(handleLoadMore);
 
   useEffect(() => {
     if (organizations.length < PAGE_SIZE) {
@@ -71,20 +128,20 @@ const DonationPage: React.FC = () => {
           <List
             items={items}
             loading={loading}
-            ItemComponent={Card}
+            ItemComponent={(props) => <Card {...props} onDonate={handleOpenDonationModal} />}
           >
-            <div ref={loaderRef} className="flex py-4">
-              {loading ? 'Loading...' : 'Scroll down to load more'}
+            <div ref={loaderRef} className="flex py-4 justify-center w-full">
+              {loading ? 'Loading...' : hasMore ? 'Scroll down to load more' : 'No more organizations to load'}
             </div>
           </List>
         ) : (
           <List
             items={searchItems}
             loading={searchLoading}
-            ItemComponent={Card}
+            ItemComponent={(props) => <Card {...props} onDonate={handleOpenDonationModal} />}
           >
-            <div ref={loaderRef} className="flex py-4">
-              {loading ? 'Loading...' : 'Scroll down to load more'}
+            <div ref={loaderRef} className="flex py-4 justify-center w-full">
+              {searchLoading ? 'Loading...' : searchHasMore ? 'Scroll down to load more' : 'No more organizations to load'}
             </div>
           </List>
         )}

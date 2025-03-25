@@ -1,5 +1,6 @@
 export interface CardProps<T> {
   item: T;
+  onDonate?: (item: T) => void;
 }
 
 export type CardContent = {
