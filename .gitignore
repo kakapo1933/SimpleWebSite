@@ -40,3 +40,6 @@ packages/frontend/*.local
 # Misc
 .cache/
 .temp/
+
+# Junie task files
+tasks-*.md
