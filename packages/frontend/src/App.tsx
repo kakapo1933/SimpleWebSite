@@ -18,9 +18,6 @@ function App() {
           <li>
             <Link to="/donations" className="hover:text-indigo-200">{t('donationPage')}</Link>
           </li>
-          <li>
-            <Link to="/beverages" className="hover:text-indigo-200">Beverages</Link>
-          </li>
         </ul>
       </nav>
 
@@ -39,7 +36,14 @@ function App() {
         <Route path="/beverages" element={<BeveragePage/>}/>
       </Routes>
 
-      <p className="text-gray-500 text-center">Kaipo Chen</p>
+      <footer className="flex flex-col justify-center max-w-md w-full bg-gray-800 p-4 rounded-b-4xl">
+        <ul className="flex justify-center gap-4 text-white mb-2">
+          <li>
+            <Link to="/beverages" className="hover:text-red-300">Beverages</Link>
+          </li>
+        </ul>
+        <p className="text-gray-400 text-center">Kaipo Chen</p>
+      </footer>
     </div>
   </Router>);
 }
