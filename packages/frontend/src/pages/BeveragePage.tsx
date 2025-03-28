@@ -57,11 +57,13 @@ const BeveragePage: React.FC = () => {
         }
 
         // Fetch beverages with pagination
-        const beveragesResponse = await beverageApiService.getBeverages({
-          categoryId: undefined,  // Explicitly set to undefined for consistency
+        const initialParams = {
+          categoryId: -1,  // Use -1 to represent "All Categories"
           limit: PAGE_SIZE,
           offset: 0
-        });
+        };
+        console.log('Initial API Request Params:', initialParams);
+        const beveragesResponse = await beverageApiService.getBeverages(initialParams);
         if (beveragesResponse.success && beveragesResponse.data) {
           setBeverages(beveragesResponse.data);
           // If we got fewer items than the page size, there are no more items
@@ -98,14 +100,16 @@ const BeveragePage: React.FC = () => {
         setHasMore(true);
 
         const params = {
-          categoryId: selectedCategory !== null ? selectedCategory : undefined,
+          categoryId: selectedCategory !== null ? selectedCategory : -1, // Use -1 to represent "All Categories"
           popular: showPopular || undefined,
           new: showNew || undefined,
           limit: PAGE_SIZE,
           offset: 0
         };
 
+        console.log('Filter API Request Params:', params);
         const response = await beverageApiService.getBeverages(params);
+        console.log('Filter API Response:', response);
         if (response.success && response.data) {
           setBeverages(response.data);
           setHasMore(response.data.length === PAGE_SIZE);
@@ -133,14 +137,16 @@ const BeveragePage: React.FC = () => {
       const nextPage = page + 1;
 
       const params = {
-        categoryId: selectedCategory !== null ? selectedCategory : undefined,
+        categoryId: selectedCategory !== null ? selectedCategory : -1, // Use -1 to represent "All Categories"
         popular: showPopular || undefined,
         new: showNew || undefined,
         limit: PAGE_SIZE,
         offset: nextPage * PAGE_SIZE
       };
 
+      console.log('Load More API Request Params:', params);
       const response = await beverageApiService.getBeverages(params);
+      console.log('Load More API Response:', response);
       if (response.success && response.data) {
         if (response.data.length === 0) {
           setHasMore(false);
