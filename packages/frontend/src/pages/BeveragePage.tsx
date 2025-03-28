@@ -198,7 +198,7 @@ const BeveragePage: React.FC = () => {
     <div className="flex flex-col min-h-screen bg-gray-100">
       {/* Header */}
       <header className="bg-red-600 text-white p-4 sticky top-0 z-10 shadow-md">
-        <div className="flex justify-between items-center max-w-6xl mx-auto">
+        <div className="flex justify-between items-center max-w-md mx-auto">
           <h1 className="text-xl font-bold">Beverage Ordering</h1>
           <div className="flex items-center space-x-4">
             <button
@@ -225,7 +225,7 @@ const BeveragePage: React.FC = () => {
       </header>
 
       {/* Main Content */}
-      <main className="flex-grow p-4 max-w-6xl mx-auto w-full">
+      <main className="flex-grow p-4 max-w-md mx-auto w-full">
         {/* Categories */}
         <div className="mb-6 overflow-x-auto">
           <div className="flex space-x-2 pb-2">
@@ -272,7 +272,7 @@ const BeveragePage: React.FC = () => {
         </div>
 
         {/* Beverages Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {beverages.map((beverage) => (
             <div
               key={beverage.id}
