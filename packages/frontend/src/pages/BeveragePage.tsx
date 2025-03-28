@@ -58,7 +58,7 @@ const BeveragePage: React.FC = () => {
 
         // Fetch beverages with pagination
         const initialParams = {
-          categoryId: -1,  // Use -1 to represent "All Categories"
+          categoryId: undefined,  // Use undefined to represent "All Categories"
           limit: PAGE_SIZE,
           offset: 0
         };
@@ -100,7 +100,7 @@ const BeveragePage: React.FC = () => {
         setHasMore(true);
 
         const params = {
-          categoryId: selectedCategory !== null ? selectedCategory : -1, // Use -1 to represent "All Categories"
+          categoryId: selectedCategory !== null ? selectedCategory : undefined, // Use undefined to represent "All Categories"
           popular: showPopular || undefined,
           new: showNew || undefined,
           limit: PAGE_SIZE,
@@ -137,7 +137,7 @@ const BeveragePage: React.FC = () => {
       const nextPage = page + 1;
 
       const params = {
-        categoryId: selectedCategory !== null ? selectedCategory : -1, // Use -1 to represent "All Categories"
+        categoryId: selectedCategory !== null ? selectedCategory : undefined, // Use undefined to represent "All Categories"
         popular: showPopular || undefined,
         new: showNew || undefined,
         limit: PAGE_SIZE,
