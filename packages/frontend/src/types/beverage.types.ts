@@ -105,6 +105,8 @@ export interface BeverageQueryParams {
   popular?: boolean;
   new?: boolean;
   categoryId?: number;
+  limit?: number;
+  offset?: number;
 }
 
 export interface CreateOrderParams {

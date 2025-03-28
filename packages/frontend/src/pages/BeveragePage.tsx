@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import CartModal from '../components/modals/CartModal';
 import GroupOrderModal from '../components/modals/GroupOrderModal';
 import CustomizationModal from '../components/modals/CustomizationModal';
+import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 
 const BeveragePage: React.FC = () => {
   const { t } = useTranslation();
@@ -23,6 +24,12 @@ const BeveragePage: React.FC = () => {
   const [showNew, setShowNew] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Pagination state
+  const PAGE_SIZE = 10;
+  const [page, setPage] = useState<number>(0);
+  const [hasMore, setHasMore] = useState<boolean>(true);
+  const [paginationLoading, setPaginationLoading] = useState<boolean>(false);
 
   // State for UI
   const [showCart, setShowCart] = useState<boolean>(false);
@@ -49,10 +56,15 @@ const BeveragePage: React.FC = () => {
           setCategories(categoriesResponse.data);
         }
 
-        // Fetch beverages
-        const beveragesResponse = await beverageApiService.getBeverages();
+        // Fetch beverages with pagination
+        const beveragesResponse = await beverageApiService.getBeverages({
+          limit: PAGE_SIZE,
+          offset: 0
+        });
         if (beveragesResponse.success && beveragesResponse.data) {
           setBeverages(beveragesResponse.data);
+          // If we got fewer items than the page size, there are no more items
+          setHasMore(beveragesResponse.data.length === PAGE_SIZE);
         }
 
         // Fetch cart items
@@ -79,16 +91,23 @@ const BeveragePage: React.FC = () => {
     const fetchFilteredBeverages = async () => {
       try {
         setLoading(true);
+        // Reset pagination when filters change
+        setPage(0);
+        setBeverages([]);
+        setHasMore(true);
 
         const params = {
           categoryId: selectedCategory || undefined,
           popular: showPopular || undefined,
           new: showNew || undefined,
+          limit: PAGE_SIZE,
+          offset: 0
         };
 
         const response = await beverageApiService.getBeverages(params);
         if (response.success && response.data) {
           setBeverages(response.data);
+          setHasMore(response.data.length === PAGE_SIZE);
         }
 
         setLoading(false);
@@ -103,6 +122,43 @@ const BeveragePage: React.FC = () => {
       console.error('Error filtering beverages:', err);
     });
   }, [selectedCategory, showPopular, showNew]);
+
+  // Handle loading more beverages
+  const handleLoadMore = async () => {
+    if (!hasMore || paginationLoading) return;
+
+    try {
+      setPaginationLoading(true);
+      const nextPage = page + 1;
+
+      const params = {
+        categoryId: selectedCategory || undefined,
+        popular: showPopular || undefined,
+        new: showNew || undefined,
+        limit: PAGE_SIZE,
+        offset: nextPage * PAGE_SIZE
+      };
+
+      const response = await beverageApiService.getBeverages(params);
+      if (response.success && response.data) {
+        if (response.data.length === 0) {
+          setHasMore(false);
+        } else {
+          setBeverages(prev => [...prev, ...response.data]);
+          setPage(nextPage);
+          setHasMore(response.data.length === PAGE_SIZE);
+        }
+      }
+
+      setPaginationLoading(false);
+    } catch (err) {
+      console.error('Error loading more beverages:', err);
+      setPaginationLoading(false);
+    }
+  };
+
+  // Use infinite scroll hook
+  const loaderRef = useInfiniteScroll(handleLoadMore);
 
   // Handle category selection
   const handleCategorySelect = (categoryId: number | null) => {
@@ -227,27 +283,29 @@ const BeveragePage: React.FC = () => {
       {/* Main Content */}
       <main className="flex-grow p-4 max-w-md mx-auto w-full">
         {/* Categories */}
-        <div className="mb-6 overflow-x-auto">
-          <div className="flex space-x-2 pb-2">
-            <button
-              className={`px-4 py-2 rounded-full whitespace-nowrap ${
-                selectedCategory === null ? 'bg-red-600 text-white' : 'bg-white text-gray-800'
-              }`}
-              onClick={() => handleCategorySelect(null)}
-            >
-              All Categories
-            </button>
-            {categories.map((category) => (
+        <div className="mb-6 overflow-hidden">
+          <div className="overflow-x-auto">
+            <div className="flex space-x-2 pb-2 min-w-max">
               <button
-                key={category.id}
                 className={`px-4 py-2 rounded-full whitespace-nowrap ${
-                  selectedCategory === category.id ? 'bg-red-600 text-white' : 'bg-white text-gray-800'
+                  selectedCategory === null ? 'bg-red-600 text-white' : 'bg-white text-gray-800'
                 }`}
-                onClick={() => handleCategorySelect(category.id)}
+                onClick={() => handleCategorySelect(null)}
               >
-                {category.name}
+                All Categories
               </button>
-            ))}
+              {categories.map((category) => (
+                <button
+                  key={category.id}
+                  className={`px-4 py-2 rounded-full whitespace-nowrap ${
+                    selectedCategory === category.id ? 'bg-red-600 text-white' : 'bg-white text-gray-800'
+                  }`}
+                  onClick={() => handleCategorySelect(category.id)}
+                >
+                  {category.name}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -310,6 +368,19 @@ const BeveragePage: React.FC = () => {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Infinite Scroll Loader */}
+        <div ref={loaderRef} className="flex py-4 justify-center w-full mt-4">
+          {paginationLoading ? (
+            <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-red-600"></div>
+          ) : hasMore ? (
+            <p className="text-gray-500 text-sm">Scroll down to load more</p>
+          ) : beverages.length > 0 ? (
+            <p className="text-gray-500 text-sm">No more beverages to load</p>
+          ) : (
+            <p className="text-gray-500 text-sm">No beverages found</p>
+          )}
         </div>
       </main>
 
