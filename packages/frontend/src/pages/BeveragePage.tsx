@@ -58,6 +58,7 @@ const BeveragePage: React.FC = () => {
 
         // Fetch beverages with pagination
         const beveragesResponse = await beverageApiService.getBeverages({
+          categoryId: undefined,  // Explicitly set to undefined for consistency
           limit: PAGE_SIZE,
           offset: 0
         });
@@ -97,7 +98,7 @@ const BeveragePage: React.FC = () => {
         setHasMore(true);
 
         const params = {
-          categoryId: selectedCategory || undefined,
+          categoryId: selectedCategory !== null ? selectedCategory : undefined,
           popular: showPopular || undefined,
           new: showNew || undefined,
           limit: PAGE_SIZE,
@@ -132,7 +133,7 @@ const BeveragePage: React.FC = () => {
       const nextPage = page + 1;
 
       const params = {
-        categoryId: selectedCategory || undefined,
+        categoryId: selectedCategory !== null ? selectedCategory : undefined,
         popular: showPopular || undefined,
         new: showNew || undefined,
         limit: PAGE_SIZE,
