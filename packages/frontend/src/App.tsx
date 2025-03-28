@@ -12,12 +12,7 @@ function App() {
       {/*<LanguageSwitcher/>*/}
       <nav className="flex flex-col justify-center max-w-md w-full h-15 bg-red-600 p-4 rounded-t-4xl">
         <ul className="flex justify-center gap-4 text-white">
-          <li>
-            <Link to="/" className="hover:text-indigo-200">Home</Link>
-          </li>
-          <li>
-            <Link to="/donations" className="hover:text-indigo-200">{t('donationPage')}</Link>
-          </li>
+          {/* Navigation tabs moved to footer */}
         </ul>
       </nav>
 
@@ -38,6 +33,12 @@ function App() {
 
       <footer className="flex flex-col justify-center max-w-md w-full bg-gray-800 p-4 rounded-b-4xl">
         <ul className="flex justify-center gap-4 text-white mb-2">
+          <li>
+            <Link to="/" className="hover:text-red-300">Home</Link>
+          </li>
+          <li>
+            <Link to="/donations" className="hover:text-red-300">{t('donationPage')}</Link>
+          </li>
           <li>
             <Link to="/beverages" className="hover:text-red-300">Beverages</Link>
           </li>
