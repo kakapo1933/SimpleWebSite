@@ -251,7 +251,7 @@ const BeveragePage: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100 overflow-x-hidden overflow-y-auto">
+    <div className="flex flex-col h-screen bg-gray-100 overflow-x-hidden overflow-y-auto">
       {/* Header */}
       <header className="bg-red-600 text-white p-4 sticky top-0 z-10 shadow-md">
         <div className="flex justify-between items-center max-w-md mx-auto">
@@ -330,7 +330,7 @@ const BeveragePage: React.FC = () => {
         </div>
 
         {/* Beverages Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 overflow-x-hidden overflow-y-visible">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 overflow-x-hidden overflow-y-auto">
           {beverages.map((beverage) => (
             <div
               key={beverage.id}
@@ -385,7 +385,7 @@ const BeveragePage: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-800 text-white p-4 text-center overflow-x-hidden overflow-y-visible">
+      <footer className="bg-gray-800 text-white p-4 text-center overflow-x-hidden overflow-y-auto">
         <p>© 2023 Beverage Ordering App</p>
       </footer>
 
