@@ -4,7 +4,6 @@ import {
   Beverage,
   BeverageCategory,
   CartItem,
-  CustomizationOption,
   SelectedCustomization,
 } from '../types/beverage.types';
 import { useTranslation } from 'react-i18next';
@@ -70,7 +69,9 @@ const BeveragePage: React.FC = () => {
       }
     };
 
-    fetchData();
+    fetchData().catch(err => {
+      console.error('Error fetching data:', err);
+    });
   }, []);
 
   // Filter beverages when filters change
@@ -98,7 +99,9 @@ const BeveragePage: React.FC = () => {
       }
     };
 
-    fetchFilteredBeverages();
+    fetchFilteredBeverages().catch(err => {
+      console.error('Error filtering beverages:', err);
+    });
   }, [selectedCategory, showPopular, showNew]);
 
   // Handle category selection
@@ -293,7 +296,8 @@ const BeveragePage: React.FC = () => {
                 <h3 className="font-bold text-lg">{beverage.name}</h3>
                 <p className="text-gray-600 text-sm mb-2">{beverage.description}</p>
                 <div className="flex justify-between items-center">
-                  <span className="font-bold text-red-600">${(typeof beverage.price === 'number' ? beverage.price : Number(beverage.price) || 0).toFixed(2)}</span>
+                  {/* Ensure price is a number before calling toFixed() to prevent "toFixed is not a function" error */}
+                  <span className="font-bold text-red-600">${(Number(beverage.price)).toFixed(2)}</span>
                   <div className="flex space-x-2">
                     {beverage.isPopular && (
                       <span className="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">Popular</span>
