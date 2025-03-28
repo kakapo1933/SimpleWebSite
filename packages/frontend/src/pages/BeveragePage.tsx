@@ -251,7 +251,7 @@ const BeveragePage: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100">
+    <div className="flex flex-col min-h-screen bg-gray-100 overflow-hidden">
       {/* Header */}
       <header className="bg-red-600 text-white p-4 sticky top-0 z-10 shadow-md">
         <div className="flex justify-between items-center max-w-md mx-auto">
@@ -281,7 +281,7 @@ const BeveragePage: React.FC = () => {
       </header>
 
       {/* Main Content */}
-      <main className="flex-grow p-4 max-w-md mx-auto w-full">
+      <main className="flex-grow p-4 max-w-md mx-auto w-full overflow-hidden">
         {/* Categories */}
         <div className="mb-6 overflow-hidden">
           <div className="overflow-x-auto">
@@ -330,7 +330,7 @@ const BeveragePage: React.FC = () => {
         </div>
 
         {/* Beverages Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 overflow-hidden">
           {beverages.map((beverage) => (
             <div
               key={beverage.id}
@@ -351,12 +351,12 @@ const BeveragePage: React.FC = () => {
                 )}
               </div>
               <div className="p-4">
-                <h3 className="font-bold text-lg">{beverage.name}</h3>
-                <p className="text-gray-600 text-sm mb-2">{beverage.description}</p>
-                <div className="flex justify-between items-center">
+                <h3 className="font-bold text-lg truncate">{beverage.name}</h3>
+                <p className="text-gray-600 text-sm mb-2 line-clamp-2 overflow-hidden">{beverage.description}</p>
+                <div className="flex justify-between items-center overflow-hidden">
                   {/* Ensure price is a number before calling toFixed() to prevent "toFixed is not a function" error */}
                   <span className="font-bold text-red-600">${(Number(beverage.price)).toFixed(2)}</span>
-                  <div className="flex space-x-2">
+                  <div className="flex space-x-2 flex-shrink-0">
                     {beverage.isPopular && (
                       <span className="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">Popular</span>
                     )}
@@ -385,7 +385,7 @@ const BeveragePage: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-800 text-white p-4 text-center">
+      <footer className="bg-gray-800 text-white p-4 text-center overflow-hidden">
         <p>© 2023 Beverage Ordering App</p>
       </footer>
 
