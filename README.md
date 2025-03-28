@@ -13,6 +13,7 @@ SimpleWebSite is a full-stack web application that serves as a donation platform
 
 ### Key Features
 
+- Welcoming homepage with feature overview and easy navigation
 - Browse organizations with infinite scrolling
 - Search for organizations by name
 - View organization details including name, type, and website

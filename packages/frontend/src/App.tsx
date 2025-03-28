@@ -1,6 +1,7 @@
-import { BrowserRouter as Router, Link, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
 import { DonationPage } from './pages/DonationPage.tsx';
 import BeveragePage from './pages/BeveragePage';
+import HomePage from './pages/HomePage';
 import { useTranslation } from 'react-i18next';
 
 function App() {
@@ -11,9 +12,9 @@ function App() {
       {/*<LanguageSwitcher/>*/}
       <nav className="flex flex-col justify-center max-w-md w-full h-15 bg-red-600 p-4 rounded-t-4xl">
         <ul className="flex justify-center gap-4 text-white">
-          {/*<li>*/}
-          {/*  <Link to="/" className="hover:text-indigo-200">Home</Link>*/}
-          {/*</li>*/}
+          <li>
+            <Link to="/" className="hover:text-indigo-200">Home</Link>
+          </li>
           <li>
             <Link to="/donations" className="hover:text-indigo-200">{t('donationPage')}</Link>
           </li>
@@ -33,7 +34,7 @@ function App() {
         {/*    </div>)}*/}
         {/*  </div>}/>*/}
         {/**/}
-        <Route path="/" element={<Navigate to="/beverages"/>}/>
+        <Route path="/" element={<HomePage/>}/>
         <Route path="/donations" element={<DonationPage/>}/>
         <Route path="/beverages" element={<BeveragePage/>}/>
       </Routes>
