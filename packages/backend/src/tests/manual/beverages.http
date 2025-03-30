@@ -1,0 +1,60 @@
+### GET All Beverage Categories
+GET http://localhost:3001/api/v1/beverages/categories
+
+Returns a list of all beverage categories with their associated beverages.
+
+**Endpoint:** GET /api/v1/beverages/categories
+
+**Response:**
+Returns an array of beverage category objects, each including their associated beverages.
+
+### GET Specific Beverage Category
+GET http://localhost:3001/api/v1/beverages/categories/1
+
+Returns a specific beverage category by ID with its associated beverages.
+
+**Endpoint:** GET /api/v1/beverages/categories/:id
+
+**Path Parameters:**
+- `id`: The ID of the beverage category to retrieve
+
+**Response:**
+Returns a beverage category object with its associated beverages.
+
+### GET All Beverages
+GET http://localhost:3001/api/v1/beverages
+
+Returns a list of all beverages.
+
+**Endpoint:** GET /api/v1/beverages
+
+**Query Parameters:**
+- `popular` (optional): Filter by popular beverages. Set to 'true' to get only popular beverages.
+- `new` (optional): Filter by new beverages. Set to 'true' to get only new beverages.
+- `categoryId` (optional): Filter by category ID.
+
+**Response:**
+Returns an array of beverage objects, each including their category and customization options.
+
+### GET Beverages with Filters
+GET http://localhost:3001/api/v1/beverages?popular=true&new=true
+
+Returns a filtered list of beverages that are both popular and new.
+
+### GET Beverages by Category
+GET http://localhost:3001/api/v1/beverages?categoryId=1
+
+Returns a list of beverages belonging to a specific category.
+
+### GET Specific Beverage
+GET http://localhost:3001/api/v1/beverages/1
+
+Returns a specific beverage by ID.
+
+**Endpoint:** GET /api/v1/beverages/:id
+
+**Path Parameters:**
+- `id`: The ID of the beverage to retrieve
+
+**Response:**
+Returns a beverage object with its category and customization options.
