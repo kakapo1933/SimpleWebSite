@@ -36,7 +36,7 @@ export const List: React.FC<ListProps<ListContent>> = ({
         {loading && (
           <div className="flex justify-center items-center p-4">
             <div
-              className="animate-spin rounded-b-full rounded-t-full h-12 w-12 border-b-2 border-l-2 border-r-2 border-teal-300"/>
+              className="animate-spin rounded-b-full rounded-t-full h-12 w-12 border-b-2 border-l-2 border-r-2 border-teal-400"/>
           </div>
         )}
       </div>

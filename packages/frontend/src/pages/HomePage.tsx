@@ -10,9 +10,9 @@ const HomePage: React.FC = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="flex flex-col max-w-md w-full h-full bg-gray-50 overflow-auto">
+    <div className="flex flex-col max-w-md w-full h-full bg-slate-100 overflow-auto">
       {/* Hero Section */}
-      <div className="bg-violet-500 text-white p-6 text-center">
+      <div className="bg-slate-600 text-white p-6 text-center">
         <h1 className="text-3xl font-bold mb-2">SimpleWebSite</h1>
         <p className="text-xl">Your one-stop platform for donations and beverages</p>
       </div>
@@ -24,13 +24,13 @@ const HomePage: React.FC = () => {
         <div className="grid grid-cols-1 gap-6 mb-8">
           {/* Donations Feature */}
           <div className="bg-white p-4 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-2 text-emerald-300">Donations</h3>
-            <p className="text-gray-700 mb-4">
+            <h3 className="text-xl font-semibold mb-2 text-teal-400">Donations</h3>
+            <p className="text-slate-950 mb-4">
               Browse and donate to various organizations. Search by name and explore with infinite scrolling.
             </p>
             <Link 
               to="/donations" 
-              className="block w-full bg-violet-500 text-white py-2 px-4 rounded text-center hover:bg-violet-600 transition-colors"
+              className="block w-full bg-slate-600 text-white py-2 px-4 rounded text-center hover:bg-slate-700 transition-colors"
             >
               {t('donationPage')}
             </Link>
@@ -38,13 +38,13 @@ const HomePage: React.FC = () => {
 
           {/* Beverages Feature */}
           <div className="bg-white p-4 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-2 text-emerald-300">Beverages</h3>
-            <p className="text-gray-700 mb-4">
+            <h3 className="text-xl font-semibold mb-2 text-teal-400">Beverages</h3>
+            <p className="text-slate-950 mb-4">
               Order your favorite drinks with customization options. Create group orders and manage your cart.
             </p>
             <Link 
               to="/beverages" 
-              className="block w-full bg-violet-500 text-white py-2 px-4 rounded text-center hover:bg-violet-600 transition-colors"
+              className="block w-full bg-slate-600 text-white py-2 px-4 rounded text-center hover:bg-slate-700 transition-colors"
             >
               Beverages
             </Link>
@@ -53,17 +53,12 @@ const HomePage: React.FC = () => {
       </div>
 
       {/* About Section */}
-      <div className="bg-gray-100 p-6">
+      <div className="bg-slate-200 p-6">
         <h2 className="text-2xl font-semibold mb-4 text-center">About SimpleWebSite</h2>
-        <p className="text-gray-700 mb-4">
+        <p className="text-slate-950 mb-4">
           SimpleWebSite is a full-stack web application that serves as a donation platform and beverage ordering system.
           Built with React, TypeScript, Node.js, and PostgreSQL, it provides a seamless user experience with a mobile-first design.
         </p>
-      </div>
-
-      {/* Footer */}
-      <div className="bg-violet-700 p-4 text-center text-white">
-        <p>© 2025 SimpleWebSite. All rights reserved.</p>
       </div>
     </div>
   );

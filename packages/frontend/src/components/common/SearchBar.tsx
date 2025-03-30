@@ -35,7 +35,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
       value={input}
       onChange={handleChange}
       onClick={handleClick}
-      className="w-full h-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+      className="w-full h-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal-400 focus:border-transparent"
     />
   </div>);
 };

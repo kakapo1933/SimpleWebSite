@@ -13,11 +13,11 @@ export const CartItem: React.FC<CartItemProps> = ({ item, onRemove, isLoading })
       <div className="flex justify-between">
         <div>
           <h3 className="font-bold">{item.beverage?.name}</h3>
-          <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
+          <p className="text-sm text-slate-950">Qty: {item.quantity}</p>
           {item.customizations && item.customizations.length > 0 && (
             <div className="mt-1">
-              <p className="text-xs text-gray-500">Customizations:</p>
-              <ul className="text-xs text-gray-600 ml-2">
+              <p className="text-xs text-slate-700">Customizations:</p>
+              <ul className="text-xs text-slate-950 ml-2">
                 {item.customizations.map((customization, index) => (
                   <li key={index}>
                     {customization.name}: {customization.value}
@@ -27,7 +27,7 @@ export const CartItem: React.FC<CartItemProps> = ({ item, onRemove, isLoading })
             </div>
           )}
           {item.notes && (
-            <p className="text-xs text-gray-600 mt-1">Notes: {item.notes}</p>
+            <p className="text-xs text-slate-950 mt-1">Notes: {item.notes}</p>
           )}
         </div>
         <div className="flex flex-col items-end">
@@ -35,7 +35,7 @@ export const CartItem: React.FC<CartItemProps> = ({ item, onRemove, isLoading })
             ${((item.beverage?.price || 0) * item.quantity).toFixed(2)}
           </span>
           <button
-            className="text-emerald-300 text-sm mt-2"
+            className="text-teal-400 text-sm mt-2"
             onClick={() => onRemove(item.id)}
             disabled={isLoading}
           >

@@ -8,9 +8,9 @@ function App() {
   const { t } = useTranslation(); // i18n hook
 
   return (<Router>
-    <div className="flex flex-col w-full h-full items-center bg-zinc-200">
+    <div className="flex flex-col w-full h-full items-center bg-slate-100">
       {/*<LanguageSwitcher/>*/}
-      <nav className="flex flex-col justify-center max-w-md w-full h-15 bg-violet-500 p-4 rounded-t-4xl">
+      <nav className="flex flex-col justify-center max-w-md w-full h-15 bg-slate-600 p-4 rounded-t-4xl">
         <ul className="flex justify-center gap-4 text-white">
           {/* Navigation tabs moved to footer */}
         </ul>
@@ -31,19 +31,19 @@ function App() {
         <Route path="/beverages" element={<BeveragePage/>}/>
       </Routes>
 
-      <footer className="flex flex-col justify-center max-w-md w-full bg-violet-700 p-4 rounded-b-4xl">
+      <footer className="flex flex-col justify-center max-w-md w-full bg-slate-900 p-4 rounded-b-4xl">
         <ul className="flex justify-center gap-4 text-white mb-2">
           <li>
-            <Link to="/" className="hover:text-violet-300">Home</Link>
+            <Link to="/" className="hover:text-teal-400">Home</Link>
           </li>
           <li>
-            <Link to="/donations" className="hover:text-violet-300">{t('donationPage')}</Link>
+            <Link to="/donations" className="hover:text-teal-400">{t('donationPage')}</Link>
           </li>
           <li>
-            <Link to="/beverages" className="hover:text-violet-300">Beverages</Link>
+            <Link to="/beverages" className="hover:text-teal-400">Beverages</Link>
           </li>
         </ul>
-        <p className="text-gray-400 text-center">Kaipo Chen</p>
+        <p className="text-slate-300 text-center">Kaipo Chen</p>
       </footer>
     </div>
   </Router>);

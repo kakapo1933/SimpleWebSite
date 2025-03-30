@@ -119,7 +119,7 @@ const DonationPage: React.FC = () => {
   }, [searchResults]);
 
   return (
-    <div className="flex flex-col max-w-md w-full h-full bg-gray-50 overflow-hidden">
+    <div className="flex flex-col max-w-md w-full h-full bg-slate-100 overflow-hidden">
       <div className="flex justify-center items-center h-15 bg-white shadow-md flex-shrink-0">
         <SearchBar onSearch={setSearchQuery} getClick={setIsSearching}/>
       </div>
