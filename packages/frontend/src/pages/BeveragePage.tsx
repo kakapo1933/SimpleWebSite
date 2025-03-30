@@ -237,7 +237,7 @@ const BeveragePage: React.FC = () => {
   if (loading && categories.length === 0) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-violet-500"></div>
       </div>
     );
   }
@@ -246,9 +246,9 @@ const BeveragePage: React.FC = () => {
   if (error && categories.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-screen p-4">
-        <div className="text-red-600 text-xl mb-4">⚠️ {error}</div>
+        <div className="text-emerald-300 text-xl mb-4">⚠️ {error}</div>
         <button
-          className="bg-red-600 text-white px-4 py-2 rounded-lg"
+          className="bg-violet-500 text-white px-4 py-2 rounded-lg"
           onClick={() => window.location.reload()}
         >
           {t('tryAgain')}
@@ -260,7 +260,7 @@ const BeveragePage: React.FC = () => {
   return (
     <div className="flex flex-col h-screen bg-gray-100 overflow-x-hidden overflow-y-auto">
       {/* Header */}
-      <header className="bg-red-600 text-white p-4 sticky top-0 z-10 shadow-md">
+      <header className="bg-violet-500 text-white p-4 sticky top-0 z-10 shadow-md">
         <div className="flex justify-between items-center max-w-md mx-auto">
           <h1 className="text-xl font-bold">Beverage Ordering</h1>
           <div className="flex items-center space-x-4">
@@ -295,7 +295,7 @@ const BeveragePage: React.FC = () => {
             <div className="flex space-x-2 pb-2 min-w-max">
               <button
                 className={`px-4 py-2 rounded-full whitespace-nowrap ${
-                  selectedCategory === null ? 'bg-red-600 text-white' : 'bg-white text-gray-800'
+                  selectedCategory === null ? 'bg-violet-500 text-white' : 'bg-white text-gray-800'
                 }`}
                 onClick={() => handleCategorySelect(null)}
               >
@@ -305,7 +305,7 @@ const BeveragePage: React.FC = () => {
                 <button
                   key={category.id}
                   className={`px-4 py-2 rounded-full whitespace-nowrap ${
-                    selectedCategory === category.id ? 'bg-red-600 text-white' : 'bg-white text-gray-800'
+                    selectedCategory === category.id ? 'bg-violet-500 text-white' : 'bg-white text-gray-800'
                   }`}
                   onClick={() => handleCategorySelect(category.id)}
                 >
@@ -320,7 +320,7 @@ const BeveragePage: React.FC = () => {
         <div className="mb-6 flex space-x-4">
           <button
             className={`px-4 py-2 rounded-lg ${
-              showPopular ? 'bg-red-600 text-white' : 'bg-white text-gray-800'
+              showPopular ? 'bg-violet-500 text-white' : 'bg-white text-gray-800'
             }`}
             onClick={handleTogglePopular}
           >
@@ -328,7 +328,7 @@ const BeveragePage: React.FC = () => {
           </button>
           <button
             className={`px-4 py-2 rounded-lg ${
-              showNew ? 'bg-red-600 text-white' : 'bg-white text-gray-800'
+              showNew ? 'bg-violet-500 text-white' : 'bg-white text-gray-800'
             }`}
             onClick={handleToggleNew}
           >
@@ -362,7 +362,7 @@ const BeveragePage: React.FC = () => {
                 <p className="text-gray-600 text-sm mb-2 line-clamp-2 overflow-hidden">{beverage.description}</p>
                 <div className="flex justify-between items-center overflow-hidden">
                   {/* Ensure price is a number before calling toFixed() to prevent "toFixed is not a function" error */}
-                  <span className="font-bold text-red-600">${(Number(beverage.price)).toFixed(2)}</span>
+                  <span className="font-bold text-emerald-300">${(Number(beverage.price)).toFixed(2)}</span>
                   <div className="flex space-x-2 flex-shrink-0">
                     {beverage.isPopular && (
                       <span className="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">Popular</span>
@@ -380,7 +380,7 @@ const BeveragePage: React.FC = () => {
         {/* Infinite Scroll Loader */}
         <div ref={loaderRef} className="flex py-4 justify-center w-full mt-4">
           {paginationLoading ? (
-            <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-red-600"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-violet-500"></div>
           ) : hasMore ? (
             <p className="text-gray-500 text-sm">Scroll down to load more</p>
           ) : beverages.length > 0 ? (
@@ -392,7 +392,7 @@ const BeveragePage: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-800 text-white p-4 text-center overflow-x-hidden overflow-y-auto">
+      <footer className="bg-violet-500 text-white p-4 text-center overflow-x-hidden overflow-y-auto">
         <p>© 2023 Beverage Ordering App</p>
       </footer>
 

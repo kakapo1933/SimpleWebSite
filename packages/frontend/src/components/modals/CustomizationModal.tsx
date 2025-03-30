@@ -49,7 +49,7 @@ const CustomizationModal: React.FC<CustomizationModalProps> = ({
           <div className="mb-4">
             <h3 className="font-bold text-lg">{selectedBeverage.name}</h3>
             <p className="text-gray-600">{selectedBeverage.description}</p>
-            <p className="font-bold text-red-600 mt-1">${(Number(selectedBeverage.price)).toFixed(2)}</p>
+            <p className="font-bold text-emerald-300 mt-1">${(Number(selectedBeverage.price)).toFixed(2)}</p>
           </div>
 
           {selectedBeverage.customizations && selectedBeverage.customizations.length > 0 && (
@@ -66,7 +66,7 @@ const CustomizationModal: React.FC<CustomizationModalProps> = ({
                           selectedCustomizations.some(
                             (sc) => sc.name === customization.name && sc.value === option.name
                           )
-                            ? 'bg-red-600 text-white'
+                            ? 'bg-violet-500 text-white'
                             : 'bg-gray-200 text-gray-800'
                         }`}
                         onClick={() => {
@@ -124,7 +124,7 @@ const CustomizationModal: React.FC<CustomizationModalProps> = ({
           <div className="mt-6">
             <div className="flex justify-between items-center mb-4">
               <span className="font-bold">Total:</span>
-              <span className="font-bold text-red-600">
+              <span className="font-bold text-emerald-300">
                 ${(
                   (Number(selectedBeverage.price) +
                     selectedCustomizations.reduce((total, sc) => total + (sc.price || 0), 0)) *
@@ -134,7 +134,7 @@ const CustomizationModal: React.FC<CustomizationModalProps> = ({
             </div>
 
             <button
-              className="w-full bg-red-600 text-white py-3 rounded-lg font-bold"
+              className="w-full bg-violet-500 text-white py-3 rounded-lg font-bold"
               onClick={onAddToCart}
             >
               Add to Cart

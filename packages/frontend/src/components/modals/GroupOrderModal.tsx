@@ -60,7 +60,7 @@ const GroupOrderModal: React.FC<GroupOrderModalProps> = ({
               </p>
 
               <button
-                className="w-full bg-red-600 text-white py-2 rounded-lg"
+                className="w-full bg-violet-500 text-white py-2 rounded-lg"
                 onClick={() => {
                   // Close the modal
                   onClose();
@@ -99,7 +99,7 @@ const GroupOrderModal: React.FC<GroupOrderModalProps> = ({
                 </div>
 
                 <button
-                  className="w-full bg-red-600 text-white py-2 rounded-lg mt-4"
+                  className="w-full bg-violet-500 text-white py-2 rounded-lg mt-4"
                   onClick={async () => {
                     if (!groupOrderName || !creatorName) {
                       alert('Please fill in all fields');
@@ -141,7 +141,7 @@ const GroupOrderModal: React.FC<GroupOrderModalProps> = ({
                 </div>
 
                 <button
-                  className="w-full bg-red-600 text-white py-2 rounded-lg mt-4"
+                  className="w-full bg-violet-500 text-white py-2 rounded-lg mt-4"
                   onClick={async () => {
                     if (!joinGroupOrderCode) {
                       alert('Please enter a group code');

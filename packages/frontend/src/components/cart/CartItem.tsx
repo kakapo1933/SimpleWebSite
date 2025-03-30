@@ -35,7 +35,7 @@ export const CartItem: React.FC<CartItemProps> = ({ item, onRemove, isLoading })
             ${((item.beverage?.price || 0) * item.quantity).toFixed(2)}
           </span>
           <button
-            className="text-red-600 text-sm mt-2"
+            className="text-emerald-300 text-sm mt-2"
             onClick={() => onRemove(item.id)}
             disabled={isLoading}
           >

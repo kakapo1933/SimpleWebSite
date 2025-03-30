@@ -24,7 +24,7 @@ export const CartActions: React.FC<CartActionsProps> = ({
           {isLoading ? 'Clearing...' : 'Clear Cart'}
         </button>
         <button
-          className="flex-1 bg-red-600 text-white py-2 rounded-lg disabled:opacity-50"
+          className="flex-1 bg-violet-500 text-white py-2 rounded-lg disabled:opacity-50"
           onClick={onCheckout}
           disabled={isLoading}
         >

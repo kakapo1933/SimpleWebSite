@@ -13,6 +13,8 @@
 - Address any test failures before committing.
 - Update README files if necessary.
 - All the work should be committed to the branch upon completion, except the 'tasks','plan'-{timestamp}.md file.
+- All commit messages must follow the established commit convention.
+- The first line must follow the type(scope): subject format
 
 # SimpleWebSite Project Guidelines
 

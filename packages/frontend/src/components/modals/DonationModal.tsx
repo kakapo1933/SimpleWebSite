@@ -52,26 +52,26 @@ export const DonationModal: React.FC<DonationModalProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate form
     if (!donorName.trim()) {
       setError('Please enter your name');
       return;
     }
-    
+
     if (!donorEmail.trim() || !/\S+@\S+\.\S+/.test(donorEmail)) {
       setError('Please enter a valid email address');
       return;
     }
-    
+
     if (!amount || amount <= 0) {
       setError('Please enter a valid donation amount');
       return;
     }
-    
+
     setError(null);
     setIsSubmitting(true);
-    
+
     try {
       await onDonate(amount, {
         name: donorName,
@@ -79,7 +79,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({
         phone: donorPhone || undefined,
         paymentMethod
       });
-      
+
       // Reset form
       setAmount(25);
       setCustomAmount('');
@@ -87,7 +87,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({
       setDonorEmail('');
       setDonorPhone('');
       setPaymentMethod('credit_card');
-      
+
       // Close modal
       onClose();
     } catch (err) {
@@ -114,13 +114,13 @@ export const DonationModal: React.FC<DonationModalProps> = ({
               </svg>
             </button>
           </div>
-          
+
           {error && (
             <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
               {error}
             </div>
           )}
-          
+
           <form onSubmit={handleSubmit}>
             <div className="mb-6">
               <label className="block text-gray-700 font-medium mb-2">
@@ -133,7 +133,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({
                     type="button"
                     className={`py-2 px-4 rounded-md ${
                       amount === amt && !customAmount
-                        ? 'bg-green-500 text-white'
+                        ? 'bg-violet-500 text-white'
                         : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
                     }`}
                     onClick={() => handleAmountSelect(amt)}
@@ -155,12 +155,12 @@ export const DonationModal: React.FC<DonationModalProps> = ({
                     value={customAmount}
                     onChange={handleCustomAmountChange}
                     placeholder="Enter amount"
-                    className="w-full pl-8 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                    className="w-full pl-8 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
                   />
                 </div>
               </div>
             </div>
-            
+
             <div className="mb-4">
               <label className="block text-gray-700 font-medium mb-2">
                 Your Name
@@ -169,11 +169,11 @@ export const DonationModal: React.FC<DonationModalProps> = ({
                 type="text"
                 value={donorName}
                 onChange={(e) => setDonorName(e.target.value)}
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
                 required
               />
             </div>
-            
+
             <div className="mb-4">
               <label className="block text-gray-700 font-medium mb-2">
                 Email Address
@@ -182,11 +182,11 @@ export const DonationModal: React.FC<DonationModalProps> = ({
                 type="email"
                 value={donorEmail}
                 onChange={(e) => setDonorEmail(e.target.value)}
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
                 required
               />
             </div>
-            
+
             <div className="mb-4">
               <label className="block text-gray-700 font-medium mb-2">
                 Phone Number (Optional)
@@ -195,10 +195,10 @@ export const DonationModal: React.FC<DonationModalProps> = ({
                 type="tel"
                 value={donorPhone}
                 onChange={(e) => setDonorPhone(e.target.value)}
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
               />
             </div>
-            
+
             <div className="mb-6">
               <label className="block text-gray-700 font-medium mb-2">
                 Payment Method
@@ -208,7 +208,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({
                   type="button"
                   className={`py-2 px-4 rounded-md ${
                     paymentMethod === 'credit_card'
-                      ? 'bg-green-500 text-white'
+                      ? 'bg-violet-500 text-white'
                       : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
                   }`}
                   onClick={() => setPaymentMethod('credit_card')}
@@ -219,7 +219,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({
                   type="button"
                   className={`py-2 px-4 rounded-md ${
                     paymentMethod === 'paypal'
-                      ? 'bg-green-500 text-white'
+                      ? 'bg-violet-500 text-white'
                       : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
                   }`}
                   onClick={() => setPaymentMethod('paypal')}
@@ -230,7 +230,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({
                   type="button"
                   className={`py-2 px-4 rounded-md ${
                     paymentMethod === 'bank_transfer'
-                      ? 'bg-green-500 text-white'
+                      ? 'bg-violet-500 text-white'
                       : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
                   }`}
                   onClick={() => setPaymentMethod('bank_transfer')}
@@ -239,7 +239,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({
                 </button>
               </div>
             </div>
-            
+
             <div className="flex justify-end">
               <button
                 type="button"
@@ -251,7 +251,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 disabled:opacity-50"
+                className="px-4 py-2 bg-violet-500 text-white rounded-md hover:bg-violet-600 disabled:opacity-50"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? 'Processing...' : `Donate $${amount || 0}`}

@@ -30,7 +30,7 @@ export const Card: React.FC<CardProps<CardContent>> = ({
         {onDonate && (
           <button
             onClick={() => onDonate(item)}
-            className="bg-green-500 hover:bg-green-600 text-white font-medium py-1 px-4 rounded-md transition-colors"
+            className="bg-violet-500 hover:bg-violet-600 text-white font-medium py-1 px-4 rounded-md transition-colors"
           >
             Donate
           </button>
