@@ -31,7 +31,7 @@ function App() {
         <Route path="/beverages" element={<BeveragePage/>}/>
       </Routes>
 
-      <footer className="flex flex-col justify-center max-w-md w-full bg-violet-500 p-4 rounded-b-4xl">
+      <footer className="flex flex-col justify-center max-w-md w-full bg-violet-700 p-4 rounded-b-4xl">
         <ul className="flex justify-center gap-4 text-white mb-2">
           <li>
             <Link to="/" className="hover:text-violet-300">Home</Link>

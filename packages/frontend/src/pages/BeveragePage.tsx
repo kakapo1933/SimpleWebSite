@@ -392,7 +392,7 @@ const BeveragePage: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-violet-500 text-white p-4 text-center overflow-x-hidden overflow-y-auto">
+      <footer className="bg-violet-700 text-white p-4 text-center overflow-x-hidden overflow-y-auto">
         <p>© 2023 Beverage Ordering App</p>
       </footer>
 

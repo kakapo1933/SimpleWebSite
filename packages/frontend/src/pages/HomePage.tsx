@@ -62,7 +62,7 @@ const HomePage: React.FC = () => {
       </div>
 
       {/* Footer */}
-      <div className="bg-violet-500 p-4 text-center text-white">
+      <div className="bg-violet-700 p-4 text-center text-white">
         <p>© 2025 SimpleWebSite. All rights reserved.</p>
       </div>
     </div>

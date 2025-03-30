@@ -133,7 +133,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({
                     type="button"
                     className={`py-2 px-4 rounded-md ${
                       amount === amt && !customAmount
-                        ? 'bg-violet-500 text-white'
+                        ? 'bg-emerald-600 text-white'
                         : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
                     }`}
                     onClick={() => handleAmountSelect(amt)}
@@ -155,7 +155,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({
                     value={customAmount}
                     onChange={handleCustomAmountChange}
                     placeholder="Enter amount"
-                    className="w-full pl-8 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
+                    className="w-full pl-8 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-600"
                   />
                 </div>
               </div>
@@ -169,7 +169,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({
                 type="text"
                 value={donorName}
                 onChange={(e) => setDonorName(e.target.value)}
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
+                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-600"
                 required
               />
             </div>
@@ -182,7 +182,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({
                 type="email"
                 value={donorEmail}
                 onChange={(e) => setDonorEmail(e.target.value)}
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
+                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-600"
                 required
               />
             </div>
@@ -195,7 +195,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({
                 type="tel"
                 value={donorPhone}
                 onChange={(e) => setDonorPhone(e.target.value)}
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
+                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-600"
               />
             </div>
 
@@ -208,7 +208,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({
                   type="button"
                   className={`py-2 px-4 rounded-md ${
                     paymentMethod === 'credit_card'
-                      ? 'bg-violet-500 text-white'
+                      ? 'bg-emerald-600 text-white'
                       : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
                   }`}
                   onClick={() => setPaymentMethod('credit_card')}
@@ -219,7 +219,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({
                   type="button"
                   className={`py-2 px-4 rounded-md ${
                     paymentMethod === 'paypal'
-                      ? 'bg-violet-500 text-white'
+                      ? 'bg-emerald-600 text-white'
                       : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
                   }`}
                   onClick={() => setPaymentMethod('paypal')}
@@ -230,7 +230,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({
                   type="button"
                   className={`py-2 px-4 rounded-md ${
                     paymentMethod === 'bank_transfer'
-                      ? 'bg-violet-500 text-white'
+                      ? 'bg-emerald-600 text-white'
                       : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
                   }`}
                   onClick={() => setPaymentMethod('bank_transfer')}
@@ -251,7 +251,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 bg-violet-500 text-white rounded-md hover:bg-violet-600 disabled:opacity-50"
+                className="px-4 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 disabled:opacity-50"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? 'Processing...' : `Donate $${amount || 0}`}
