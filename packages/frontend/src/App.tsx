@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
 import { DonationPage } from './pages/DonationPage.tsx';
 import BeveragePage from './pages/BeveragePage';
 import HomePage from './pages/HomePage';
+import TodoPage from './pages/TodoPage';
 import { useTranslation } from 'react-i18next';
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         <Route path="/" element={<HomePage/>}/>
         <Route path="/donations" element={<DonationPage/>}/>
         <Route path="/beverages" element={<BeveragePage/>}/>
+        <Route path="/todos" element={<TodoPage/>}/>
       </Routes>
 
       <footer className="flex flex-col justify-center max-w-md w-full bg-slate-900 p-4 rounded-b-4xl">
@@ -41,6 +43,9 @@ function App() {
           </li>
           <li>
             <Link to="/beverages" className="hover:text-teal-400">Beverages</Link>
+          </li>
+          <li>
+            <Link to="/todos" className="hover:text-teal-400">Todos</Link>
           </li>
         </ul>
         <p className="text-slate-300 text-center">Kaipo Chen</p>

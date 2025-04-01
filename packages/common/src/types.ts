@@ -19,4 +19,24 @@ interface Organization {
   notes?: string;
 }
 
-export { HealthCheckResponse, Organization };
+// Define Todo type
+interface Todo {
+  id: number;
+  title: string;
+  description?: string;
+  completed: boolean;
+  priority?: 'low' | 'medium' | 'high';
+  dueDate?: Date;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// Define TodoCreate type
+interface TodoCreate {
+  title: string;
+  description?: string;
+  priority?: 'low' | 'medium' | 'high';
+  dueDate?: Date;
+}
+
+export { HealthCheckResponse, Organization, Todo, TodoCreate };
