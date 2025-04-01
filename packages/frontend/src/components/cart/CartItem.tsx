@@ -16,7 +16,7 @@ export const CartItem: React.FC<CartItemProps> = ({ item, onRemove, isLoading })
           <p className="text-sm text-slate-950">Qty: {item.quantity}</p>
           {item.customizations && item.customizations.length > 0 && (
             <div className="mt-1">
-              <p className="text-xs text-slate-700">Customizations:</p>
+              <p className="text-xs text-slate-950">Customizations:</p>
               <ul className="text-xs text-slate-950 ml-2">
                 {item.customizations.map((customization, index) => (
                   <li key={index}>

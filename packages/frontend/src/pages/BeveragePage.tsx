@@ -320,7 +320,7 @@ const BeveragePage: React.FC = () => {
         <div className="mb-6 flex space-x-4">
           <button
             className={`px-4 py-2 rounded-lg ${
-              showPopular ? 'bg-sky-400 text-white' : 'bg-white text-gray-800'
+              showPopular ? 'bg-orange-200 text-yellow-800' : 'bg-white text-gray-800'
             }`}
             onClick={handleTogglePopular}
           >
@@ -328,7 +328,7 @@ const BeveragePage: React.FC = () => {
           </button>
           <button
             className={`px-4 py-2 rounded-lg ${
-              showNew ? 'bg-sky-400 text-white' : 'bg-white text-gray-800'
+              showNew ? 'bg-green-100 text-green-800' : 'bg-white text-gray-800'
             }`}
             onClick={handleToggleNew}
           >
@@ -357,15 +357,15 @@ const BeveragePage: React.FC = () => {
                   </div>
                 )}
               </div>
-              <div className="p-4">
+              <div className="p-4 bg-slate-200">
                 <h3 className="font-bold text-lg truncate">{beverage.name}</h3>
                 <p className="text-gray-600 text-sm mb-2 line-clamp-2 overflow-hidden">{beverage.description}</p>
                 <div className="flex justify-between items-center overflow-hidden">
                   {/* Ensure price is a number before calling toFixed() to prevent "toFixed is not a function" error */}
-                  <span className="font-bold text-sky-500">${(Number(beverage.price)).toFixed(2)}</span>
+                  <span className="font-bold text-cyan-800">${(Number(beverage.price)).toFixed(2)}</span>
                   <div className="flex space-x-2 flex-shrink-0">
                     {beverage.isPopular && (
-                      <span className="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">Popular</span>
+                      <span className="bg-orange-200 text-yellow-800 text-xs px-2 py-1 rounded">Popular</span>
                     )}
                     {beverage.isNew && (
                       <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">New</span>

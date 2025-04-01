@@ -35,7 +35,7 @@ const CustomizationModal: React.FC<CustomizationModalProps> = ({
           <div className="flex justify-between items-center">
             <h2 className="text-xl font-bold">Customize Your Order</h2>
             <button
-              className="text-gray-500 hover:text-gray-700"
+              className="text-slate-600 hover:text-slate-900"
               onClick={onClose}
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -48,8 +48,8 @@ const CustomizationModal: React.FC<CustomizationModalProps> = ({
         <div className="p-4">
           <div className="mb-4">
             <h3 className="font-bold text-lg">{selectedBeverage.name}</h3>
-            <p className="text-gray-600">{selectedBeverage.description}</p>
-            <p className="font-bold text-emerald-300 mt-1">${(Number(selectedBeverage.price)).toFixed(2)}</p>
+            <p className="text-slate-950">{selectedBeverage.description}</p>
+            <p className="font-bold text-teal-400 mt-1">${(Number(selectedBeverage.price)).toFixed(2)}</p>
           </div>
 
           {selectedBeverage.customizations && selectedBeverage.customizations.length > 0 && (
@@ -66,8 +66,8 @@ const CustomizationModal: React.FC<CustomizationModalProps> = ({
                           selectedCustomizations.some(
                             (sc) => sc.name === customization.name && sc.value === option.name
                           )
-                            ? 'bg-violet-500 text-white'
-                            : 'bg-gray-200 text-gray-800'
+                            ? 'bg-slate-600 text-white'
+                            : 'bg-white text-slate-950'
                         }`}
                         onClick={() => {
                           // Remove existing customization with the same name
@@ -95,14 +95,14 @@ const CustomizationModal: React.FC<CustomizationModalProps> = ({
             <h4 className="font-bold mb-2">Quantity</h4>
             <div className="flex items-center">
               <button
-                className="bg-gray-200 text-gray-800 w-8 h-8 rounded-full flex items-center justify-center"
+                className="bg-slate-600 text-white w-8 h-8 rounded-full flex items-center justify-center"
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
               >
                 -
               </button>
               <span className="mx-4 font-bold">{quantity}</span>
               <button
-                className="bg-gray-200 text-gray-800 w-8 h-8 rounded-full flex items-center justify-center"
+                className="bg-slate-600 text-white w-8 h-8 rounded-full flex items-center justify-center"
                 onClick={() => setQuantity(quantity + 1)}
               >
                 +
@@ -124,7 +124,7 @@ const CustomizationModal: React.FC<CustomizationModalProps> = ({
           <div className="mt-6">
             <div className="flex justify-between items-center mb-4">
               <span className="font-bold">Total:</span>
-              <span className="font-bold text-emerald-300">
+              <span className="font-bold text-teal-400">
                 ${(
                   (Number(selectedBeverage.price) +
                     selectedCustomizations.reduce((total, sc) => total + (sc.price || 0), 0)) *
@@ -134,7 +134,7 @@ const CustomizationModal: React.FC<CustomizationModalProps> = ({
             </div>
 
             <button
-              className="w-full bg-violet-500 text-white py-3 rounded-lg font-bold"
+              className="w-full bg-slate-600 text-white py-3 rounded-lg font-bold"
               onClick={onAddToCart}
             >
               Add to Cart

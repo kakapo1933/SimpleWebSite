@@ -52,22 +52,22 @@ export default function TodoPage() {
   // Handle form submission to create a new todo
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate title
     if (!newTodo.title.trim()) {
       setError('Title is required');
       return;
     }
-    
+
     try {
       const response = await todoService.createTodo(newTodo);
       if (response.success) {
         // Handle the response data properly
         const newTodoItem = Array.isArray(response.data) ? response.data[0] : response.data as Todo;
-        
+
         // Add the new todo to the beginning of the list
         setTodos(prev => [newTodoItem, ...prev]);
-        
+
         // Reset the form
         setNewTodo({
           title: '',
@@ -93,14 +93,14 @@ export default function TodoPage() {
           todo.id === id ? { ...todo, completed: !todo.completed } : todo
         )
       );
-      
+
       // Then make the API call
       const response = await todoService.toggleTodoStatus({ id });
-      
+
       if (response.success) {
         // Update with the server response data to ensure consistency
         const updatedTodo = Array.isArray(response.data) ? response.data[0] : response.data as Todo;
-        
+
         setTodos(prev => 
           prev.map(todo => 
             todo.id === id ? updatedTodo : todo
@@ -131,10 +131,10 @@ export default function TodoPage() {
   const handleDelete = async (id: number) => {
     // Store the current todo for potential recovery
     const todoToDelete = todos.find(todo => todo.id === id);
-    
+
     // Optimistically remove the todo from the list
     setTodos(prev => prev.filter(todo => todo.id !== id));
-    
+
     try {
       const response = await todoService.deleteTodo({ id });
       if (!response.success) {
@@ -156,21 +156,21 @@ export default function TodoPage() {
 
   return (
     <div className="flex flex-col gap-6 w-full max-w-md p-4">
-      <h1 className="text-3xl font-bold text-slate-800">Todo List</h1>
-      
+      <h1 className="text-3xl font-bold text-slate-950">Todo List</h1>
+
       {/* Error message */}
       {error && (
-        <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4" role="alert">
+        <div className="bg-white border-l-4 border-slate-600 text-slate-950 p-4 mb-4" role="alert">
           <p>{error}</p>
         </div>
       )}
-      
+
       {/* Create Todo Form */}
       <div className="bg-white shadow-md rounded-lg p-4">
-        <h2 className="text-xl font-semibold mb-4 text-slate-700">Add New Todo</h2>
+        <h2 className="text-xl font-semibold mb-4 text-slate-950">Add New Todo</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="title" className="block text-sm font-medium text-slate-700 mb-1">
+            <label htmlFor="title" className="block text-sm font-medium text-slate-950 mb-1">
               Title*
             </label>
             <input
@@ -179,13 +179,13 @@ export default function TodoPage() {
               name="title"
               value={newTodo.title}
               onChange={handleInputChange}
-              className="w-full p-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+              className="w-full p-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400"
               placeholder="Enter todo title"
             />
           </div>
-          
+
           <div className="mb-4">
-            <label htmlFor="description" className="block text-sm font-medium text-slate-700 mb-1">
+            <label htmlFor="description" className="block text-sm font-medium text-slate-950 mb-1">
               Description
             </label>
             <textarea
@@ -193,14 +193,14 @@ export default function TodoPage() {
               name="description"
               value={newTodo.description || ''}
               onChange={handleInputChange}
-              className="w-full p-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+              className="w-full p-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400"
               placeholder="Enter description"
               rows={3}
             />
           </div>
-          
+
           <div className="mb-4">
-            <label htmlFor="priority" className="block text-sm font-medium text-slate-700 mb-1">
+            <label htmlFor="priority" className="block text-sm font-medium text-slate-950 mb-1">
               Priority
             </label>
             <select
@@ -208,31 +208,31 @@ export default function TodoPage() {
               name="priority"
               value={newTodo.priority || 'medium'}
               onChange={handleInputChange}
-              className="w-full p-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+              className="w-full p-2 border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400"
             >
               <option value="low">Low</option>
               <option value="medium">Medium</option>
               <option value="high">High</option>
             </select>
           </div>
-          
+
           <button
             type="submit"
-            className="w-full bg-teal-600 hover:bg-teal-700 text-white font-medium py-2 px-4 rounded-md transition duration-300"
+            className="w-full bg-slate-600 hover:bg-slate-900 text-white font-medium py-2 px-4 rounded-md transition duration-300"
           >
             Add Todo
           </button>
         </form>
       </div>
-      
+
       {/* Todo List */}
       <div className="bg-white shadow-md rounded-lg overflow-hidden">
-        <h2 className="text-xl font-semibold p-4 border-b text-slate-700">My Todos</h2>
-        
+        <h2 className="text-xl font-semibold p-4 border-b text-slate-950">My Todos</h2>
+
         {loading ? (
-          <div className="p-4 text-center text-slate-600">Loading todos...</div>
+          <div className="p-4 text-center text-slate-950">Loading todos...</div>
         ) : todos.length === 0 ? (
-          <div className="p-4 text-center text-slate-600">No todos yet. Add one above!</div>
+          <div className="p-4 text-center text-slate-950">No todos yet. Add one above!</div>
         ) : (
           <ul className="divide-y divide-slate-200">
             {todos.map((todo) => (
@@ -245,37 +245,37 @@ export default function TodoPage() {
                         type="checkbox"
                         checked={Boolean(todo?.completed)}
                         onChange={() => handleToggleComplete(todo.id)}
-                        className="h-5 w-5 rounded border-slate-300 text-teal-600 focus:ring-teal-500"
+                        className="h-5 w-5 rounded border-slate-300 text-teal-400 focus:ring-teal-400"
                       />
                     </div>
-                    
+
                     {/* Todo content */}
                     <div>
-                      <h3 className={`text-lg font-medium ${todo?.completed ? 'line-through text-slate-500' : 'text-slate-800'}`}>
+                      <h3 className={`text-lg font-medium ${todo?.completed ? 'line-through text-slate-500' : 'text-slate-950'}`}>
                         {todo.title}
                       </h3>
                       {todo.description && (
-                        <p className={`mt-1 text-sm ${todo?.completed ? 'text-slate-400' : 'text-slate-600'}`}>
+                        <p className={`mt-1 text-sm ${todo?.completed ? 'text-slate-400' : 'text-slate-950'}`}>
                           {todo.description}
                         </p>
                       )}
                       <div className="mt-2 flex items-center gap-2">
                         <span className={`text-xs px-2 py-1 rounded-full ${
-                          todo.priority === 'high' ? 'bg-red-100 text-red-700' :
-                          todo.priority === 'medium' ? 'bg-yellow-100 text-yellow-700' :
-                          'bg-slate-100 text-slate-700'
+                          todo.priority === 'high' ? 'bg-slate-900 text-white' :
+                          todo.priority === 'medium' ? 'bg-slate-600 text-white' :
+                          'bg-teal-400 text-white'
                         }`}>
                           {todo.priority || 'Normal'}
                         </span>
                         {todo.dueDate && (
-                          <span className="text-xs text-slate-500">
+                          <span className="text-xs text-slate-950">
                             Due: {new Date(todo.dueDate).toLocaleDateString()}
                           </span>
                         )}
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* Delete button */}
                   <button
                     onClick={() => handleDelete(todo.id)}

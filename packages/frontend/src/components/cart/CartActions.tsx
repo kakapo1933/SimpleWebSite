@@ -17,7 +17,7 @@ export const CartActions: React.FC<CartActionsProps> = ({
     <div className="mt-6 space-y-2">
       <div className="flex space-x-2">
         <button
-          className="flex-1 bg-gray-200 text-gray-800 py-2 rounded-lg disabled:opacity-50"
+          className="flex-1 bg-white text-slate-950 py-2 rounded-lg disabled:opacity-50"
           onClick={onClearCart}
           disabled={isLoading}
         >
