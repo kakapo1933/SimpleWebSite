@@ -19,11 +19,11 @@
 }
 
 .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
+    filter: drop-shadow(0 0 2em rgba(91, 192, 190, 0.67)); /* teal-400 with opacity */
 }
 
 .logo.react:hover {
-    filter: drop-shadow(0 0 2em #61dafbaa);
+    filter: drop-shadow(0 0 2em rgba(91, 192, 190, 0.67)); /* teal-400 with opacity */
 }
 
 @keyframes logo-spin {
@@ -45,8 +45,8 @@
 .card {
     padding: 2em;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
+    box-shadow: 0 2px 8px rgba(28, 37, 65, 0.1); /* slate-900 with opacity */
+    background-color: white; /* white */
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
@@ -68,14 +68,14 @@
 .form-group input {
     width: 100%;
     padding: 0.5rem;
-    border: 1px solid #ccc;
+    border: 1px solid #3A506B; /* slate-600 */
     border-radius: 4px;
     font-size: 1rem;
 }
 
 button {
-    background-color: #646cff;
-    color: white;
+    background-color: #3A506B; /* slate-600 */
+    color: white; /* white */
     border: none;
     border-radius: 4px;
     padding: 0.5rem 1rem;
@@ -85,7 +85,7 @@ button {
 }
 
 button:hover {
-    background-color: #535bf2;
+    background-color: #1C2541; /* slate-900 */
 }
 
 table {
@@ -98,22 +98,23 @@ table th,
 table td {
     padding: 0.5rem;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #3A506B; /* slate-600 */
 }
 
 table th {
     font-weight: bold;
-    background-color: #f2f2f2;
+    background-color: #1C2541; /* slate-900 */
+    color: white; /* white */
 }
 
 .success {
-    color: green;
+    color: #5BC0BE; /* teal-400 */
 }
 
 .error {
-    color: red;
+    color: #1C2541; /* slate-900 */
 }
 
 .read-the-docs {
-    color: #888;
+    color: #0B132B; /* slate-950 */
 }

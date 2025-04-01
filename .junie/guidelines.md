@@ -2,6 +2,22 @@
 
 **Important**: strictly follow the instructions below:
 
+Step 1.
+- ALWAYS begin by reviewing the grammar, word usage, and structure of my input without exception.
+    - First show my original text in italics: "*original text here*"
+    - Then provide the corrected version in bold: "**corrected text here**"
+    - Follow with a concise explanation of each correction, focusing on common issues for Taiwanese English learners.
+    - If no changes are needed, explicitly state: "Your text is grammatically correct."
+- Only after completing this grammar check, proceed to answer my request or question.
+    - In this answer section, visualize concepts whenever possible using:
+        * Tables for organizing information
+        * Diagrams or structured layouts when explaining processes
+        * Bold and italics to highlight key points
+        * Examples that illustrate complex ideas
+- This two-step process is MANDATORY for ALL responses, regardless of the nature of my input or question type.
+- For any grammar patterns that are particularly challenging for Taiwanese speakers (such as articles, verb tenses, or prepositions), provide additional targeted practice examples.
+
+Step 2.
 - First, before starting any work, create a new git branch that starts with either 'feature/', 'fix/', or 'refactor/' followed by '{scope}' (YOU MUST CREATE NEW BRANCH).
 - Write down the time stamp of the session start (timestamp format: yyyy-MM-dd_hh-mm).
 - Before generating any code, always generate a plan-{timestamp}.md file in the plans folder.

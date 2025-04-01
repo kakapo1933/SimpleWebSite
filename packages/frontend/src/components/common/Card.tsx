@@ -21,7 +21,7 @@ export const Card: React.FC<CardProps<CardContent>> = ({
             href={item.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-teal-400 hover:text-teal-500 truncate inline-block max-w-[45%]"
+            className="text-teal-400 hover:text-slate-900 truncate inline-block max-w-[45%]"
           >
             Visit Website
           </a>
@@ -30,7 +30,7 @@ export const Card: React.FC<CardProps<CardContent>> = ({
         {onDonate && (
           <button
             onClick={() => onDonate(item)}
-            className="bg-slate-600 hover:bg-slate-700 text-white font-medium py-1 px-4 rounded-md transition-colors"
+            className="bg-slate-600 hover:bg-slate-900 text-white font-medium py-1 px-4 rounded-md transition-colors"
           >
             Donate
           </button>

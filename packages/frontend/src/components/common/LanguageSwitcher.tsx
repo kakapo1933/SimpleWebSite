@@ -10,12 +10,12 @@ const LanguageSwitcher: React.FC = () => {
   };
 
   return (<div>
-    <button className='border-green-700 bg-gradient-to-r from-green-600 to-teal-400 border-2 border-r-0 rounded-l-full p-2 cursor-pointer transition-transform duration-150 ease-in-out active:scale-95
+    <button className='border-slate-600 bg-gradient-to-r from-slate-900 to-teal-400 border-2 border-r-0 rounded-l-full p-2 cursor-pointer transition-transform duration-150 ease-in-out active:scale-95 text-white
 '
             onClick={() => changeLanguage('en')}>English
     </button>
     <button
-      className='border-green-700 bg-gradient-to-l from-green-600 to-teal-400 border-2 border-l-0 rounded-r-full p-2 cursor-pointer transition-transform duration-150 ease-in-out active:scale-95'
+      className='border-slate-600 bg-gradient-to-l from-slate-900 to-teal-400 border-2 border-l-0 rounded-r-full p-2 cursor-pointer transition-transform duration-150 ease-in-out active:scale-95 text-white'
       onClick={() => changeLanguage('zh_tw')}>繁體中文
     </button>
   </div>);
