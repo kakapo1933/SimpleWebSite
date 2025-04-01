@@ -37,22 +37,28 @@ packages/
   │   │   ├── repositories/ # Data access layer
   │   │   ├── routes/       # API routes
   │   │   ├── services/     # Business logic
+  │   │   ├── tests/        # Test files
   │   │   ├── types/        # TypeScript type definitions
   │   │   ├── utils/        # Utility functions
   │   │   ├── app.ts        # Express application setup
   │   │   └── index.ts      # Server entry point
   │   └── scripts/          # Utility scripts (e.g., mock data generation)
   ├── common/      # Shared types and utilities
-  │   └── src/             # TypeScript source files
+  │   └── src/
+  │       ├── index.ts      # Entry point for common package
+  │       └── types.ts      # Shared type definitions
   └── frontend/    # React frontend with Vite and Tailwind
       ├── src/
+      │   ├── assets/       # Static assets (images, fonts, etc.)
       │   ├── components/   # Reusable UI components
       │   ├── hooks/        # Custom React hooks
       │   ├── pages/        # Page components
       │   ├── services/     # API service functions
       │   ├── types/        # TypeScript type definitions
       │   ├── utils/        # Utility functions
+      │   ├── App.css       # Main application styles
       │   ├── App.tsx       # Main application component
+      │   ├── index.css     # Global styles
       │   └── main.tsx      # Application entry point
       └── i18n/             # Internationalization configuration
 ```
@@ -155,11 +161,29 @@ Prisma CLI commands:
     # Launch Prisma Studio
     pnpm prisma:studio
 
+    # Pull schema from existing database
+    pnpm prisma:pull
+
     # Reset database
     pnpm prisma migrate reset
 
     # Format schema
     pnpm prisma format
+```
+
+### Mock Data Generation
+
+The project includes scripts to generate mock data for testing:
+
+```bash
+    # Generate organization mock data
+    pnpm mock-data:generate
+
+    # Generate beverage mock data
+    pnpm mock-data:generate-beverage
+
+    # Generate all mock data
+    pnpm mock-data:generate-all
 ```
 
 For more detailed database management, refer to the [Prisma documentation](https://www.prisma.io/docs/).
@@ -222,6 +246,724 @@ Searches for organizations based on a search term.
     }
   ],
   "message": "Organizations matched successfully"
+}
+```
+
+### Beverages API
+
+#### Get Beverage Categories
+
+```
+GET /api/v1/beverages/categories
+```
+
+Fetches all beverage categories.
+
+**Response:**
+```json
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Coffee",
+      "description": "Coffee-based beverages"
+    }
+  ],
+  "message": "Beverage categories retrieved successfully"
+}
+```
+
+#### Get Beverage Category by ID
+
+```
+GET /api/v1/beverages/categories/:id
+```
+
+Fetches a specific beverage category by ID.
+
+**Response:**
+```json
+{
+  "data": {
+    "id": 1,
+    "name": "Coffee",
+    "description": "Coffee-based beverages"
+  },
+  "message": "Beverage category retrieved successfully"
+}
+```
+
+#### Get Beverages
+
+```
+GET /api/v1/beverages
+```
+
+Fetches beverages based on the provided query parameters.
+
+**Query Parameters:**
+- `popular` (optional): Filter by popular beverages
+- `new` (optional): Filter by new beverages
+- `categoryId` (optional): Filter by category ID
+
+**Response:**
+```json
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Espresso",
+      "description": "Strong coffee",
+      "price": 3.5,
+      "categoryId": 1
+    }
+  ],
+  "message": "Beverages retrieved successfully"
+}
+```
+
+#### Get Beverage by ID
+
+```
+GET /api/v1/beverages/:id
+```
+
+Fetches a specific beverage by ID.
+
+**Response:**
+```json
+{
+  "data": {
+    "id": 1,
+    "name": "Espresso",
+    "description": "Strong coffee",
+    "price": 3.5,
+    "categoryId": 1
+  },
+  "message": "Beverage retrieved successfully"
+}
+```
+
+### Cart API
+
+#### Get Cart Items
+
+```
+GET /api/v1/cart/:sessionId
+```
+
+Fetches cart items for a specific session.
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "id": "1",
+      "sessionId": "session123",
+      "beverageId": 1,
+      "quantity": 2,
+      "customizations": {},
+      "notes": "Extra hot",
+      "beverage": {
+        "id": 1,
+        "name": "Espresso",
+        "price": 3.5
+      }
+    }
+  ],
+  "message": "Cart items retrieved successfully"
+}
+```
+
+#### Add Item to Cart
+
+```
+POST /api/v1/cart/:sessionId
+```
+
+Adds an item to the cart.
+
+**Request Body:**
+```json
+{
+  "beverageId": 1,
+  "quantity": 2,
+  "customizations": {
+    "size": "large",
+    "temperature": "hot"
+  },
+  "notes": "Extra hot"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "id": "1",
+    "sessionId": "session123",
+    "beverageId": 1,
+    "quantity": 2,
+    "customizations": {
+      "size": "large",
+      "temperature": "hot"
+    },
+    "notes": "Extra hot"
+  },
+  "message": "Item added to cart successfully"
+}
+```
+
+#### Update Cart Item
+
+```
+PUT /api/v1/cart/:sessionId/:itemId
+```
+
+Updates a cart item.
+
+**Request Body:**
+```json
+{
+  "quantity": 3,
+  "customizations": {
+    "size": "medium",
+    "temperature": "cold"
+  },
+  "notes": "Less ice"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "id": "1",
+    "sessionId": "session123",
+    "beverageId": 1,
+    "quantity": 3,
+    "customizations": {
+      "size": "medium",
+      "temperature": "cold"
+    },
+    "notes": "Less ice"
+  },
+  "message": "Cart item updated successfully"
+}
+```
+
+#### Remove Item from Cart
+
+```
+DELETE /api/v1/cart/:sessionId/:itemId
+```
+
+Removes an item from the cart.
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Item removed from cart successfully"
+}
+```
+
+#### Clear Cart
+
+```
+DELETE /api/v1/cart/:sessionId
+```
+
+Clears all items from the cart.
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Cart cleared successfully"
+}
+```
+
+### Group Orders API
+
+#### Create Group Order
+
+```
+POST /api/v1/group-orders
+```
+
+Creates a new group order.
+
+**Request Body:**
+```json
+{
+  "name": "Office Lunch",
+  "creatorName": "John Doe",
+  "expiresInMinutes": 60
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "name": "Office Lunch",
+    "shareCode": "ABC123",
+    "creatorName": "John Doe",
+    "status": "active",
+    "expiresAt": "2023-04-01T13:00:00Z",
+    "createdAt": "2023-04-01T12:00:00Z",
+    "updatedAt": "2023-04-01T12:00:00Z"
+  },
+  "message": "Group order created successfully"
+}
+```
+
+#### Get Group Order by Share Code
+
+```
+GET /api/v1/group-orders/code/:shareCode
+```
+
+Fetches a group order by its share code.
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "name": "Office Lunch",
+    "shareCode": "ABC123",
+    "creatorName": "John Doe",
+    "status": "active",
+    "expiresAt": "2023-04-01T13:00:00Z",
+    "orders": []
+  },
+  "message": "Group order retrieved successfully"
+}
+```
+
+#### Get Group Order by ID
+
+```
+GET /api/v1/group-orders/:id
+```
+
+Fetches a group order by its ID.
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "name": "Office Lunch",
+    "shareCode": "ABC123",
+    "creatorName": "John Doe",
+    "status": "active",
+    "expiresAt": "2023-04-01T13:00:00Z",
+    "orders": []
+  },
+  "message": "Group order retrieved successfully"
+}
+```
+
+#### Update Group Order Status
+
+```
+PATCH /api/v1/group-orders/:id/status
+```
+
+Updates the status of a group order.
+
+**Request Body:**
+```json
+{
+  "status": "completed"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "status": "completed",
+    "updatedAt": "2023-04-01T12:30:00Z"
+  },
+  "message": "Group order status updated successfully"
+}
+```
+
+#### Extend Group Order Expiration
+
+```
+PATCH /api/v1/group-orders/:id/extend
+```
+
+Extends the expiration time of a group order.
+
+**Request Body:**
+```json
+{
+  "additionalMinutes": 30
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "expiresAt": "2023-04-01T13:30:00Z",
+    "status": "active"
+  },
+  "message": "Group order expiration time extended successfully"
+}
+```
+
+### Orders API
+
+#### Create Order
+
+```
+POST /api/v1/orders
+```
+
+Creates a new order.
+
+**Request Body:**
+```json
+{
+  "customerName": "Jane Doe",
+  "customerEmail": "jane@example.com",
+  "customerPhone": "123-456-7890",
+  "items": [
+    {
+      "beverageId": 1,
+      "quantity": 2,
+      "price": 3.5,
+      "customizations": {
+        "size": "large",
+        "temperature": "hot"
+      },
+      "notes": "Extra hot"
+    }
+  ],
+  "paymentMethod": "credit_card",
+  "groupOrderId": 1
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "customerName": "Jane Doe",
+    "customerEmail": "jane@example.com",
+    "customerPhone": "123-456-7890",
+    "totalAmount": 7.0,
+    "status": "pending",
+    "paymentStatus": "pending",
+    "paymentMethod": "credit_card",
+    "groupOrderId": 1,
+    "items": [
+      {
+        "id": 1,
+        "orderId": 1,
+        "beverageId": 1,
+        "quantity": 2,
+        "price": 3.5,
+        "customizations": {
+          "size": "large",
+          "temperature": "hot"
+        },
+        "notes": "Extra hot",
+        "beverage": {
+          "id": 1,
+          "name": "Espresso",
+          "price": 3.5
+        }
+      }
+    ]
+  },
+  "message": "Order created successfully"
+}
+```
+
+#### Get Orders
+
+```
+GET /api/v1/orders
+```
+
+Fetches all orders.
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "customerName": "Jane Doe",
+      "totalAmount": 7.0,
+      "status": "pending",
+      "paymentStatus": "pending",
+      "items": []
+    }
+  ],
+  "message": "Orders retrieved successfully"
+}
+```
+
+#### Get Order by ID
+
+```
+GET /api/v1/orders/:id
+```
+
+Fetches a specific order by ID.
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "customerName": "Jane Doe",
+    "customerEmail": "jane@example.com",
+    "customerPhone": "123-456-7890",
+    "totalAmount": 7.0,
+    "status": "pending",
+    "paymentStatus": "pending",
+    "paymentMethod": "credit_card",
+    "groupOrderId": 1,
+    "items": []
+  },
+  "message": "Order retrieved successfully"
+}
+```
+
+#### Update Order Status
+
+```
+PATCH /api/v1/orders/:id/status
+```
+
+Updates the status of an order.
+
+**Request Body:**
+```json
+{
+  "status": "completed"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "status": "completed",
+    "updatedAt": "2023-04-01T12:30:00Z"
+  },
+  "message": "Order status updated successfully"
+}
+```
+
+#### Update Payment Status
+
+```
+PATCH /api/v1/orders/:id/payment
+```
+
+Updates the payment status of an order.
+
+**Request Body:**
+```json
+{
+  "paymentStatus": "paid",
+  "paymentMethod": "credit_card"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "paymentStatus": "paid",
+    "paymentMethod": "credit_card",
+    "updatedAt": "2023-04-01T12:30:00Z"
+  },
+  "message": "Payment status updated successfully"
+}
+```
+
+### Todos API
+
+#### Get All Todos
+
+```
+GET /api/v1/todos
+```
+
+Fetches all todos.
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "title": "Complete project",
+      "description": "Finish the SimpleWebSite project",
+      "completed": false,
+      "createdAt": "2023-04-01T12:00:00Z",
+      "updatedAt": "2023-04-01T12:00:00Z"
+    }
+  ],
+  "message": "Todos retrieved successfully"
+}
+```
+
+#### Get Todo by ID
+
+```
+GET /api/v1/todos/:id
+```
+
+Fetches a specific todo by ID.
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "title": "Complete project",
+    "description": "Finish the SimpleWebSite project",
+    "completed": false,
+    "createdAt": "2023-04-01T12:00:00Z",
+    "updatedAt": "2023-04-01T12:00:00Z"
+  },
+  "message": "Todo retrieved successfully"
+}
+```
+
+#### Create Todo
+
+```
+POST /api/v1/todos
+```
+
+Creates a new todo.
+
+**Request Body:**
+```json
+{
+  "title": "Complete project",
+  "description": "Finish the SimpleWebSite project"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "title": "Complete project",
+    "description": "Finish the SimpleWebSite project",
+    "completed": false,
+    "createdAt": "2023-04-01T12:00:00Z",
+    "updatedAt": "2023-04-01T12:00:00Z"
+  },
+  "message": "Todo created successfully"
+}
+```
+
+#### Update Todo
+
+```
+PUT /api/v1/todos/:id
+```
+
+Updates a todo.
+
+**Request Body:**
+```json
+{
+  "title": "Complete project",
+  "description": "Finish the SimpleWebSite project with all features",
+  "completed": true
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "title": "Complete project",
+    "description": "Finish the SimpleWebSite project with all features",
+    "completed": true,
+    "updatedAt": "2023-04-01T12:30:00Z"
+  },
+  "message": "Todo updated successfully"
+}
+```
+
+#### Delete Todo
+
+```
+DELETE /api/v1/todos/:id
+```
+
+Deletes a todo.
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Todo deleted successfully"
+}
+```
+
+#### Toggle Todo Status
+
+```
+PATCH /api/v1/todos/:id/toggle
+```
+
+Toggles the completion status of a todo.
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "completed": true,
+    "updatedAt": "2023-04-01T12:30:00Z"
+  },
+  "message": "Todo status toggled successfully"
 }
 ```
 
