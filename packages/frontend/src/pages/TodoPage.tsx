@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { todoService } from '../services/todoService';
-import type { Todo, CreateTodoInput } from '../types/todo.types';
+import type { Todo, CreateTodoInput } from '../types';
 
 export default function TodoPage() {
   const [todos, setTodos] = useState<Todo[]>([]);

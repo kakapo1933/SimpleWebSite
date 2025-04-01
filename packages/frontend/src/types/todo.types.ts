@@ -1,4 +1,4 @@
-import { Todo as CommonTodo, TodoCreate } from '@simple-website/common';
+import { Todo as CommonTodo, TodoCreate } from 'common';
 
 export type Todo = CommonTodo;
 export type CreateTodoInput = TodoCreate;
