@@ -147,6 +147,79 @@ Or build individual packages:
     pnpm build:frontend
 ```
 
+## Docker Setup
+
+The project includes Docker support for easy deployment and development. Docker allows you to run the entire application stack (frontend, backend, and database) with a single command.
+
+### Prerequisites
+
+- [Docker](https://www.docker.com/get-started) (Latest stable version)
+- [Docker Compose](https://docs.docker.com/compose/install/) (Included with Docker Desktop)
+
+### Running with Docker Compose
+
+1. Build and start all services:
+
+   ```bash
+   docker-compose up -d
+   ```
+
+   This command will:
+   - Build the frontend and backend Docker images
+   - Start the PostgreSQL database
+   - Start the backend API service
+   - Start the frontend service
+
+2. Access the application:
+   - Frontend: http://localhost
+   - Backend API: http://localhost:3001/api/v1
+
+3. Stop all services:
+
+   ```bash
+   docker-compose down
+   ```
+
+4. Stop all services and remove volumes (this will delete the database data):
+
+   ```bash
+   docker-compose down -v
+   ```
+
+### Docker Commands
+
+```bash
+# Build all services
+docker-compose build
+
+# Build a specific service
+docker-compose build backend
+docker-compose build frontend
+
+# View logs
+docker-compose logs
+
+# View logs for a specific service
+docker-compose logs backend
+docker-compose logs frontend
+
+# Restart a service
+docker-compose restart backend
+```
+
+### Troubleshooting
+
+- If you encounter issues with the database connection, ensure the PostgreSQL container is running:
+  ```bash
+  docker-compose ps
+  ```
+
+- If you need to reset the database:
+  ```bash
+  docker-compose down -v
+  docker-compose up -d
+  ```
+
 ## Database Management
 
 Prisma CLI commands:
