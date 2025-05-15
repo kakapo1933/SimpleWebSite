@@ -11,7 +11,7 @@ export const CartActions: React.FC<CartActionsProps> = ({
   onClearCart,
   onCheckout,
   onContinueShopping,
-  isLoading
+  isLoading,
 }) => {
   return (
     <div className="mt-6 space-y-2">

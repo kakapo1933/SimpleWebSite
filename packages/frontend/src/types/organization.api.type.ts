@@ -1,23 +1,23 @@
-import { Organization } from "common";
+import { Organization } from 'common';
 
-export type GetOrganizationsQueryParams = {
+export type IGetOrganizationsQueryParams = {
   limit?: number;
   offset?: number;
 };
 
-export type SearchOrganizationsQueryParams = {
+export type ISearchOrganizationsQueryParams = {
   searchTerm: string;
   similarityThreshold?: number;
   limit?: number;
   offset?: number;
 };
 
-export interface UseOrganizationsResult {
+export interface IUseOrganizationsResult {
   organizations: Organization[];
   loading: boolean;
 }
 
-export interface UseSearchOrganizationsResult {
+export interface IUseSearchOrganizationsResult {
   organizations: Organization[];
   loading: boolean;
   hasMore: boolean;

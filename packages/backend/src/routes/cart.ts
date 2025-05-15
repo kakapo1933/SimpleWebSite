@@ -30,7 +30,7 @@ router.get('/:sessionId', async (req, res) => {
           ...item,
           beverage,
         };
-      })
+      }),
     );
     
     res.json({

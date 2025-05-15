@@ -1,16 +1,16 @@
 // Types for the beverage ordering functionality
 
 // Beverage Category
-export interface BeverageCategory {
+export interface IBeverageCategory {
   id: number;
   name: string;
   description?: string;
   imageUrl?: string;
-  beverages?: Beverage[];
+  beverages?: IBeverage[];
 }
 
 // Beverage
-export interface Beverage {
+export interface IBeverage {
   id: number;
   name: string;
   description?: string;
@@ -19,48 +19,48 @@ export interface Beverage {
   isPopular: boolean;
   isNew: boolean;
   categoryId: number;
-  category?: BeverageCategory;
-  customizations?: BeverageCustomization[];
+  category?: IBeverageCategory;
+  customizations?: IBeverageCustomization[];
 }
 
 // Beverage Customization
-export interface BeverageCustomization {
+export interface IBeverageCustomization {
   id: number;
   name: string;
   type: string; // e.g., "size", "temperature", "sweetness", "ice", "add-in"
-  options: CustomizationOption[];
+  options: ICustomizationOption[];
   beverageId: number;
 }
 
 // Customization Option
-export interface CustomizationOption {
+export interface ICustomizationOption {
   id: string;
   name: string;
   price: number;
 }
 
 // Selected Customization
-export interface SelectedCustomization {
+export interface ISelectedCustomization {
   name: string;
   value: string;
   price?: number;
 }
 
 // Cart Item
-export interface CartItem {
+export interface ICartItem {
   id: string;
   sessionId: string;
   beverageId: number;
-  beverage?: Beverage;
+  beverage?: IBeverage;
   quantity: number;
-  customizations?: SelectedCustomization[];
+  customizations?: ISelectedCustomization[];
   notes?: string;
   createdAt: string;
   updatedAt: string;
 }
 
 // Order
-export interface Order {
+export interface IOrder {
   id: number;
   customerName?: string;
   customerEmail?: string;
@@ -71,25 +71,25 @@ export interface Order {
   paymentStatus: string;
   createdAt: string;
   updatedAt: string;
-  items: OrderItem[];
+  items: IOrderItem[];
   groupOrderId?: number;
-  groupOrder?: GroupOrder;
+  groupOrder?: IGroupOrder;
 }
 
 // Order Item
-export interface OrderItem {
+export interface IOrderItem {
   id: number;
   orderId: number;
   beverageId: number;
-  beverage: Beverage;
+  beverage: IBeverage;
   quantity: number;
   price: number;
-  customizations?: SelectedCustomization[];
+  customizations?: ISelectedCustomization[];
   notes?: string;
 }
 
 // Group Order
-export interface GroupOrder {
+export interface IGroupOrder {
   id: number;
   name: string;
   shareCode: string;
@@ -97,11 +97,11 @@ export interface GroupOrder {
   expiresAt: string;
   status: string;
   createdAt: string;
-  orders: Order[];
+  orders: IOrder[];
 }
 
 // Query Parameters
-export interface BeverageQueryParams {
+export interface IBeverageQueryParams {
   popular?: boolean;
   new?: boolean;
   categoryId?: number;
@@ -109,7 +109,7 @@ export interface BeverageQueryParams {
   offset?: number;
 }
 
-export interface CreateOrderParams {
+export interface ICreateOrderParams {
   customerName?: string;
   customerEmail?: string;
   customerPhone?: string;
@@ -117,19 +117,19 @@ export interface CreateOrderParams {
     beverageId: number;
     quantity: number;
     price: number;
-    customizations?: SelectedCustomization[];
+    customizations?: ISelectedCustomization[];
     notes?: string;
   }[];
   paymentMethod?: string;
   groupOrderId?: number;
 }
 
-export interface CreateGroupOrderParams {
+export interface ICreateGroupOrderParams {
   name: string;
   creatorName: string;
   expiresInMinutes?: number;
 }
 
-export interface ExtendGroupOrderParams {
+export interface IExtendGroupOrderParams {
   additionalMinutes?: number;
 }

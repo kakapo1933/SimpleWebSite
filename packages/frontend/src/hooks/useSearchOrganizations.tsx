@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Organization } from 'common';
-import { SearchOrganizationsQueryParams, UseSearchOrganizationsResult } from "../types";
-import { apiService } from "../services/api.ts";
+import { SearchOrganizationsQueryParams, UseSearchOrganizationsResult } from '../types';
+import { apiService } from '../services/api.ts';
 
 export const useSearchOrganizations = (
   searchTerm: string,
@@ -13,48 +13,53 @@ export const useSearchOrganizations = (
   const [loading, setLoading] = useState<boolean>(false);
   const [hasMore, setHasMore] = useState<boolean>(true);
 
-  const fetchData = useCallback(async (abortController: AbortController, isActive: boolean, isLoadingMore: boolean = false) => {
-    setLoading(true);
+  const fetchData = useCallback(
+    async (abortController: AbortController, isActive: boolean, isLoadingMore: boolean = false) => {
+      setLoading(true);
 
-    const queryParams: SearchOrganizationsQueryParams = { searchTerm: "" };
-    if (searchTerm) queryParams.searchTerm = searchTerm;
-    if (similarityThreshold) queryParams.similarityThreshold = similarityThreshold;
-    if (limit) queryParams.limit = limit;
-    if (offset !== undefined) queryParams.offset = offset;
+      const queryParams: SearchOrganizationsQueryParams = { searchTerm: '' };
+      if (searchTerm) queryParams.searchTerm = searchTerm;
+      if (similarityThreshold) queryParams.similarityThreshold = similarityThreshold;
+      if (limit) queryParams.limit = limit;
+      if (offset !== undefined) queryParams.offset = offset;
 
-    try {
-      const response = await apiService.searchOrganizations({
-        searchTerm,
-        similarityThreshold,
-        limit,
-        offset,
-      }, abortController.signal);
+      try {
+        const response = await apiService.searchOrganizations(
+          {
+            searchTerm,
+            similarityThreshold,
+            limit,
+            offset,
+          },
+          abortController.signal
+        );
 
-      if (!isActive) return;
+        if (!isActive) return;
 
-      // Check if there are more results to load
-      if (response.data.length < (limit || 10)) {
-        setHasMore(false);
-      } else {
-        setHasMore(true);
+        // Check if there are more results to load
+        if (response.data.length < (limit || 10)) {
+          setHasMore(false);
+        } else {
+          setHasMore(true);
+        }
+
+        // If loading more, append to existing results, otherwise replace
+        if (isLoadingMore) {
+          setOrganizations(prev => [...prev, ...response.data]);
+        } else {
+          setOrganizations(response.data);
+        }
+
+        setLoading(false);
+      } catch (err) {
+        if (!isActive) return;
+        const error = err instanceof Error ? err.message : 'Failed to fetch organizations';
+        console.log('Failed to find matched organizations', error);
+        setLoading(false);
       }
-
-      // If loading more, append to existing results, otherwise replace
-      if (isLoadingMore) {
-        setOrganizations(prev => [...prev, ...response.data]);
-      } else {
-        setOrganizations(response.data);
-      }
-
-      setLoading(false);
-    }
-    catch (err) {
-      if (!isActive) return;
-      const error = err instanceof Error ? err.message : 'Failed to fetch organizations';
-      console.log('Failed to find matched organizations', error);
-      setLoading(false);
-    }
-  }, [searchTerm, similarityThreshold, limit, offset]);
+    },
+    [searchTerm, similarityThreshold, limit, offset]
+  );
 
   useEffect(() => {
     let isActive = true;
@@ -84,12 +89,15 @@ export const useSearchOrganizations = (
       // Create a new fetch function with the updated offset
       const fetchMoreData = async () => {
         try {
-          const response = await apiService.searchOrganizations({
-            searchTerm,
-            similarityThreshold,
-            limit,
-            offset: newOffset,
-          }, abortController.signal);
+          const response = await apiService.searchOrganizations(
+            {
+              searchTerm,
+              similarityThreshold,
+              limit,
+              offset: newOffset,
+            },
+            abortController.signal
+          );
 
           // Check if there are more results to load
           if (response.data.length < (limit || 10)) {
@@ -115,6 +123,6 @@ export const useSearchOrganizations = (
     organizations,
     loading,
     hasMore,
-    loadMore
+    loadMore,
   };
 };

@@ -29,23 +29,31 @@ const GroupOrderModal: React.FC<GroupOrderModalProps> = ({
   if (!show) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-lg w-full max-w-md">
-        <div className="p-4 border-b">
-          <div className="flex justify-between items-center">
-            <h2 className="text-xl font-bold">Group Order</h2>
-            <button
-              className="text-gray-500 hover:text-gray-700"
-              onClick={onClose}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2 sm:p-4">
+      <div className="bg-white rounded-lg shadow-lg w-full max-w-[95%] sm:max-w-md">
+        <div className="p-3 sm:p-4 border-b">
+          <div className="flex justify-between items-center mb-3 sm:mb-4">
+            <h2 className="text-lg sm:text-xl font-bold">Group Order</h2>
+            <button className="text-gray-500 hover:text-gray-700" onClick={onClose}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           </div>
         </div>
 
-        <div className="p-4">
+        <div className="p-3 sm:p-4">
           {groupOrderCode ? (
             <div>
               <div className="mb-4 text-center">
@@ -56,7 +64,8 @@ const GroupOrderModal: React.FC<GroupOrderModalProps> = ({
               </div>
 
               <p className="text-sm text-gray-600 mb-4">
-                Share this code with your friends so they can join your group order. Once everyone has added their items, you can place the order.
+                Share this code with your friends so they can join your group order. Once everyone
+                has added their items, you can place the order.
               </p>
 
               <button
@@ -73,7 +82,7 @@ const GroupOrderModal: React.FC<GroupOrderModalProps> = ({
             </div>
           ) : (
             <div>
-              <div className="mb-4">
+              <div className="mb-3 sm:mb-4">
                 <h3 className="font-bold mb-2">Create a Group Order</h3>
                 <div className="space-y-3">
                   <div>
@@ -83,7 +92,7 @@ const GroupOrderModal: React.FC<GroupOrderModalProps> = ({
                       className="w-full p-2 border rounded-lg"
                       placeholder="e.g., Office Lunch"
                       value={groupOrderName}
-                      onChange={(e) => setGroupOrderName(e.target.value)}
+                      onChange={e => setGroupOrderName(e.target.value)}
                     />
                   </div>
                   <div>
@@ -93,7 +102,7 @@ const GroupOrderModal: React.FC<GroupOrderModalProps> = ({
                       className="w-full p-2 border rounded-lg"
                       placeholder="e.g., John"
                       value={creatorName}
-                      onChange={(e) => setCreatorName(e.target.value)}
+                      onChange={e => setCreatorName(e.target.value)}
                     />
                   </div>
                 </div>
@@ -135,7 +144,7 @@ const GroupOrderModal: React.FC<GroupOrderModalProps> = ({
                       className="w-full p-2 border rounded-lg"
                       placeholder="Enter group code"
                       value={joinGroupOrderCode}
-                      onChange={(e) => setJoinGroupOrderCode(e.target.value.toUpperCase())}
+                      onChange={e => setJoinGroupOrderCode(e.target.value.toUpperCase())}
                     />
                   </div>
                 </div>
@@ -149,7 +158,8 @@ const GroupOrderModal: React.FC<GroupOrderModalProps> = ({
                     }
 
                     try {
-                      const response = await beverageApiService.getGroupOrderByCode(joinGroupOrderCode);
+                      const response =
+                        await beverageApiService.getGroupOrderByCode(joinGroupOrderCode);
 
                       if (response.success && response.data) {
                         // Handle joining group order

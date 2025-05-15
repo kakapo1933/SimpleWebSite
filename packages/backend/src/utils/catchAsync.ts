@@ -14,6 +14,6 @@ import { NextFunction, Request, RequestHandler, Response } from 'express';
 export const catchAsync = (fn: RequestHandler): RequestHandler => (req: Request, res: Response, next: NextFunction) => {
   Promise.resolve(fn(req, res, next)).catch((err) => {
     err.message = `[UNEXPECTED ERROR]\n${err.message}`;
-    next(err)
+    next(err);
   });
 };

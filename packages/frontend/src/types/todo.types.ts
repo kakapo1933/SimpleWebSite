@@ -1,9 +1,9 @@
 import { Todo as CommonTodo, TodoCreate } from 'common';
 
-export type Todo = CommonTodo;
-export type CreateTodoInput = TodoCreate;
+export type ITodo = CommonTodo;
+export type ICreateTodoInput = TodoCreate;
 
-export interface TodoUpdateInput {
+export interface ITodoUpdateInput {
   id: number;
   title?: string;
   description?: string;
@@ -12,10 +12,10 @@ export interface TodoUpdateInput {
   dueDate?: Date | string;
 }
 
-export interface TodoToggleInput {
+export interface ITodoToggleInput {
   id: number;
 }
 
-export interface TodoDeleteInput {
+export interface ITodoDeleteInput {
   id: number;
 }

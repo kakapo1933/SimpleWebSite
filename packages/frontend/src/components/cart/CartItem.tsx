@@ -26,9 +26,7 @@ export const CartItem: React.FC<CartItemProps> = ({ item, onRemove, isLoading })
               </ul>
             </div>
           )}
-          {item.notes && (
-            <p className="text-xs text-slate-950 mt-1">Notes: {item.notes}</p>
-          )}
+          {item.notes && <p className="text-xs text-slate-950 mt-1">Notes: {item.notes}</p>}
         </div>
         <div className="flex flex-col items-end">
           <span className="font-bold">

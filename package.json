@@ -17,7 +17,11 @@
     "prisma:pull": "cd packages/backend && pnpm prisma:pull",
     "mock-data:generate": "cd packages/backend && pnpm mock-data:generate",
     "mock-data:generate-beverage": "cd packages/backend && pnpm mock-data:generate-beverage",
-    "mock-data:generate-all": "cd packages/backend && pnpm mock-data:generate-all"
+    "mock-data:generate-all": "cd packages/backend && pnpm mock-data:generate-all",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "packageManager": "pnpm@10.6.1",
   "devDependencies": {
@@ -26,7 +30,9 @@
     "@typescript-eslint/parser": "^8.26.0",
     "concurrently": "^8.2.2",
     "eslint": "^9.21.0",
+    "eslint-config-prettier": "^9.1.0",
     "globals": "^15.15.0",
+    "prettier": "^3.1.1",
     "typescript-eslint": "^8.26.0"
   }
 }

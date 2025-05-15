@@ -13,7 +13,7 @@ const getOrganizations = async (limit: number, offset: number): Promise<Array<or
     take: limit,
     skip: offset,
   });
-}
+};
 
 /**
  * Fuzzy search
@@ -26,7 +26,7 @@ const getOrganizations = async (limit: number, offset: number): Promise<Array<or
  */
 const searchOrganizations = async (searchTerm: string,
   similarityThreshold: number,
-  pageSize: number,): Promise<Array<organizations>> => {
+  pageSize: number): Promise<Array<organizations>> => {
   return await prisma.$queryRaw`
       SELECT *
       FROM organizations
@@ -41,9 +41,9 @@ const searchOrganizations = async (searchTerm: string,
           ) DESC
           LIMIT ${pageSize}
   `;
-}
+};
 
 export const OrganizationRepository = {
   getOrganizations,
-  searchOrganizations
-}
+  searchOrganizations,
+};

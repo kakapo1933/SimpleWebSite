@@ -1,4 +1,4 @@
-import { ApiResponse } from "../types";
+import { ApiResponse } from '../types';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -20,7 +20,7 @@ const fetchJson = async <T>(url: string, options?: RequestInit): Promise<T> => {
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
-  return await response.json() satisfies Promise<T>;
+  return (await response.json()) satisfies Promise<T>;
 };
 
 /**
@@ -76,16 +76,12 @@ export async function apiRequestV1<T, P extends QueryParams = QueryParams>(
 ): Promise<ApiResponse<T>> {
   try {
     const url = buildV1RestApiUrl(endpoint);
-    const fullUrl = options?.params
-      ? buildUrlWithQueryParams(url, options.params)
-      : url;
+    const fullUrl = options?.params ? buildUrlWithQueryParams(url, options.params) : url;
 
     return await fetchJson<ApiResponse<T>>(fullUrl, { signal: options?.signal });
   } catch (error) {
     // Enhanced error handling with more context
-    const errorMessage = error instanceof Error
-      ? error.message
-      : 'Unknown error occurred';
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
 
     throw new Error(`API request to ${endpoint} failed: ${errorMessage}`);
   }
@@ -98,7 +94,10 @@ export async function apiRequestV1<T, P extends QueryParams = QueryParams>(
  * @param params - Object containing query parameters
  * @returns Complete URL with query parameters
  */
-export function buildUrlWithQueryParams<T extends QueryParams>(baseUrl: string, params?: T): string {
+export function buildUrlWithQueryParams<T extends QueryParams>(
+  baseUrl: string,
+  params?: T
+): string {
   // Return the base URL if there are no params or params is empty
   if (!params || Object.keys(params).length === 0) {
     return baseUrl;

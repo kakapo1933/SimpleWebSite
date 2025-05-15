@@ -1,6 +1,6 @@
-import { Router } from "express";
-import { beverageController } from "../controllers/beverageController";
-import { catchAsync } from "../utils/catchAsync";
+import { Router } from 'express';
+import { beverageController } from '../controllers/beverageController';
+import { catchAsync } from '../utils/catchAsync';
 
 const router = Router();
 

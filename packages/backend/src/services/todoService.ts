@@ -78,5 +78,5 @@ export const TodoService = {
   createTodo,
   updateTodo,
   toggleTodoStatus,
-  deleteTodo
+  deleteTodo,
 };

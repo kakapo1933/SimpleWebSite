@@ -1,21 +1,23 @@
-import React from "react";
-import { CardContent, CardProps } from "../../types";
+import React from 'react';
+import { ICardContent, ICardProps } from '../../types';
 
-export const Card: React.FC<CardProps<CardContent>> = ({
+export const Card: React.FC<ICardProps<ICardContent>> = ({
   item = {
     id: -1,
     name: 'Foo',
     type: 'Bar',
-    link: 'https://example.com'
+    link: 'https://example.com',
   },
-  onDonate
-}) => {
+  onDonate,
+}): JSX.Element => {
   return (
-    <div className="flex flex-col flex-1 bg-white rounded-lg shadow-md p-4 mb-4 w-full max-w-full overflow-hidden">
-      <h2 className="text-xl font-bold mb-2 break-words">{item.name}</h2>
-      {item.type && (<p className="text-slate-950 mb-2 break-words">{item.type}</p>)}
+    <div className="bg-white rounded-lg shadow-md h-full flex flex-col">
+      <div className="p-5 flex-grow">
+        <h2 className="text-xl font-bold mb-2 break-words text-slate-950">{item.name}</h2>
+        {item.type && <p className="text-slate-800 mb-3 break-words">{item.type}</p>}
+      </div>
 
-      <div className="flex justify-between items-center mt-2">
+      <div className="px-5 py-4 border-t border-slate-100 mt-auto flex justify-between items-center">
         {item.link && (
           <a
             href={item.link}
@@ -30,7 +32,7 @@ export const Card: React.FC<CardProps<CardContent>> = ({
         {onDonate && (
           <button
             onClick={() => onDonate(item)}
-            className="bg-slate-600 hover:bg-slate-900 text-white font-medium py-1 px-4 rounded-md transition-colors"
+            className="bg-slate-600 hover:bg-slate-900 text-white font-medium py-2 px-4 rounded-md transition-colors ml-auto"
           >
             Donate
           </button>

@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { ErrorResponse, SuccessResponse } from "../types/response.handler";
+import { ErrorResponse, SuccessResponse } from '../types/response.handler';
 
 /**
  * Sends a standardized success response to the client.
@@ -15,9 +15,9 @@ function success<T>(res: Response, data: T, message?: string, statusCode: number
   res.status(statusCode).json({
     success: true,
     data,
-    message
+    message,
   } satisfies SuccessResponse<T>);
-  return
+  return;
 }
 
 /**
@@ -32,13 +32,13 @@ function error(res: Response, message: string, statusCode: number = 400): void {
   res.status(statusCode).json({
     success: false,
     error: {
-      message
-    }
+      message,
+    },
   } satisfies ErrorResponse);
-  return
+  return;
 }
 
 export const ResponseHandler = {
   success,
-  error
-}
+  error,
+};

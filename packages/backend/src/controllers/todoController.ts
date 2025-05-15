@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { TodoService } from '../services/todoService';
-import { ResponseHandler } from "../utils/responseHandler";
+import { ResponseHandler } from '../utils/responseHandler';
 
 /**
  * Fetches all todos.
@@ -71,7 +71,7 @@ async function createTodo(req: Request, res: Response): Promise<void> {
     title,
     description,
     priority,
-    dueDate: parsedDueDate
+    dueDate: parsedDueDate,
   };
   
   const newTodo = await TodoService.createTodo(todoData);
@@ -128,7 +128,7 @@ async function updateTodo(req: Request, res: Response): Promise<void> {
       description,
       completed,
       priority,
-      dueDate: parsedDueDate
+      dueDate: parsedDueDate,
     });
     
     ResponseHandler.success(res, updatedTodo, '[Todo updated successfully]');
@@ -191,5 +191,5 @@ export const todoController = {
   createTodo,
   updateTodo,
   toggleTodoStatus,
-  deleteTodo
+  deleteTodo,
 };

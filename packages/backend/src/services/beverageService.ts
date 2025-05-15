@@ -1,6 +1,6 @@
-import { BeverageRepository } from "../repositories/beverageRepository";
+import { BeverageRepository } from '../repositories/beverageRepository';
 import type { beverage, beverage_category } from '@prisma/client';
-import { BeverageFilter } from "../types";
+import { BeverageFilter } from '../types';
 
 /**
  * Retrieves all beverage categories from the database.
@@ -32,7 +32,7 @@ async function getBeverageCategoryById(id: number): Promise<(beverage_category &
 async function getBeverages(
   popular?: string,
   isNew?: string,
-  categoryId?: string
+  categoryId?: string,
 ): Promise<Array<beverage & { category: beverage_category, customizations: any[] }>> {
   const filter: BeverageFilter = {};
 

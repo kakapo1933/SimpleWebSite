@@ -1,5 +1,5 @@
-import { apiRequestV1, buildV1RestApiUrl, fetchJson } from "../utils/http";
-import { ApiResponse } from "../types/api.response.type";
+import { apiRequestV1, buildV1RestApiUrl, fetchJson } from '../utils/http';
+import { ApiResponse } from '../types/api.response.type';
 import {
   Beverage,
   BeverageCategory,
@@ -10,7 +10,7 @@ import {
   ExtendGroupOrderParams,
   GroupOrder,
   Order,
-} from "../types/beverage.types";
+} from '../types/beverage.types';
 
 // Generate a unique session ID for the cart
 const generateSessionId = (): string => {
@@ -21,7 +21,8 @@ const generateSessionId = (): string => {
   }
 
   // Generate a new session ID
-  const newSessionId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+  const newSessionId =
+    Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
   localStorage.setItem('cartSessionId', newSessionId);
   return newSessionId;
 };
@@ -31,7 +32,10 @@ async function getBeverageCategories(signal?: AbortSignal): Promise<ApiResponse<
   return await apiRequestV1<BeverageCategory>('/beverages/categories', { signal });
 }
 
-async function getBeverageCategory(id: number, signal?: AbortSignal): Promise<ApiResponse<BeverageCategory>> {
+async function getBeverageCategory(
+  id: number,
+  signal?: AbortSignal
+): Promise<ApiResponse<BeverageCategory>> {
   return await apiRequestV1<BeverageCategory>(`/beverages/categories/${id}`, { signal });
 }
 
@@ -102,7 +106,10 @@ async function updateCartItem(
   });
 }
 
-async function removeFromCart(itemId: string, signal?: AbortSignal): Promise<ApiResponse<{ success: boolean; message: string }>> {
+async function removeFromCart(
+  itemId: string,
+  signal?: AbortSignal
+): Promise<ApiResponse<{ success: boolean; message: string }>> {
   const sessionId = generateSessionId();
   const url = buildV1RestApiUrl(`/cart/${sessionId}/${itemId}`);
 
@@ -112,7 +119,9 @@ async function removeFromCart(itemId: string, signal?: AbortSignal): Promise<Api
   });
 }
 
-async function clearCart(signal?: AbortSignal): Promise<ApiResponse<{ success: boolean; message: string }>> {
+async function clearCart(
+  signal?: AbortSignal
+): Promise<ApiResponse<{ success: boolean; message: string }>> {
   const sessionId = generateSessionId();
   const url = buildV1RestApiUrl(`/cart/${sessionId}`);
 
@@ -123,7 +132,10 @@ async function clearCart(signal?: AbortSignal): Promise<ApiResponse<{ success: b
 }
 
 // Orders
-async function createOrder(orderData: CreateOrderParams, signal?: AbortSignal): Promise<ApiResponse<Order>> {
+async function createOrder(
+  orderData: CreateOrderParams,
+  signal?: AbortSignal
+): Promise<ApiResponse<Order>> {
   const url = buildV1RestApiUrl('/orders');
 
   return await fetchJson<ApiResponse<Order>>(url, {

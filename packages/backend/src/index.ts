@@ -1,7 +1,7 @@
 import { app } from './app';
 import dotenv from 'dotenv';
 import { prisma } from './models/PrismaClient';
-import { healthCheck } from "./utils/healthCheck";
+import { healthCheck } from './utils/healthCheck';
 
 dotenv.config(); // Initialize environment variables
 const port = Number(process.env.PORT) || 3001;
@@ -27,8 +27,7 @@ async function shutdownGracefully(): Promise<void> {
     try {
       await prisma.$disconnect();
       console.log('Prisma client disconnected');
-    }
-    catch (error) {
+    } catch (error) {
       console.error('Error disconnecting Prisma client:', error);
     }
 

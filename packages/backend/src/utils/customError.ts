@@ -28,7 +28,7 @@ interface CustomErrorOptions {
  */
 function createCustomError(
   errorType: ErrorType, 
-  { name, message, shouldThrow = false, customStack }: CustomErrorOptions
+  { name, message, shouldThrow = false, customStack }: CustomErrorOptions,
 ): Error {
   // Create the error object
   const error = new Error(message);
@@ -69,13 +69,13 @@ export function PlannedError(
   name: string, 
   message: string, 
   shouldThrow: boolean = false,
-  customStack?: string
+  customStack?: string,
 ): Error {
   return createCustomError(ErrorType.PLANNED, { 
     name, 
     message, 
     shouldThrow,
-    customStack
+    customStack,
   });
 }
 
@@ -94,12 +94,12 @@ export function FatalError(
   name: string, 
   message: string, 
   shouldThrow: boolean = false,
-  customStack?: string
+  customStack?: string,
 ): Error {
   return createCustomError(ErrorType.FATAL, { 
     name, 
     message, 
     shouldThrow,
-    customStack
+    customStack,
   });
 }

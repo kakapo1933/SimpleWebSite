@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { BeverageService } from '../services';
-import { ResponseHandler } from "../utils/responseHandler";
-import { GetBeveragesQuery, GetBeverageByIdParams, GetBeverageCategoryByIdParams } from "../types";
+import { ResponseHandler } from '../utils/responseHandler';
+import { GetBeveragesQuery, GetBeverageByIdParams, GetBeverageCategoryByIdParams } from '../types';
 
 /**
  * Fetches all beverage categories.
@@ -11,7 +11,7 @@ import { GetBeveragesQuery, GetBeverageByIdParams, GetBeverageCategoryByIdParams
  */
 async function getBeverageCategories(
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> {
   const categories = await BeverageService.getBeverageCategories();
   ResponseHandler.success(res, categories, 'Beverage categories retrieved successfully');
@@ -25,7 +25,7 @@ async function getBeverageCategories(
  */
 async function getBeverageCategoryById(
   req: Request<GetBeverageCategoryByIdParams>,
-  res: Response
+  res: Response,
 ): Promise<void> {
   const { id } = req.params;
   const category = await BeverageService.getBeverageCategoryById(Number(id));
@@ -46,7 +46,7 @@ async function getBeverageCategoryById(
  */
 async function getBeverages(
   req: Request<object, object, object, GetBeveragesQuery>,
-  res: Response
+  res: Response,
 ): Promise<void> {
   const { popular, new: isNew, categoryId } = req.query;
   const beverages = await BeverageService.getBeverages(popular, isNew, categoryId);
@@ -61,7 +61,7 @@ async function getBeverages(
  */
 async function getBeverageById(
   req: Request<GetBeverageByIdParams>,
-  res: Response
+  res: Response,
 ): Promise<void> {
   const { id } = req.params;
   const beverage = await BeverageService.getBeverageById(Number(id));

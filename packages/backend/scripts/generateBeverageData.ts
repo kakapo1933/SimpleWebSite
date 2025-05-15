@@ -1,4 +1,4 @@
-import { prisma } from "../src/models/PrismaClient";
+import { prisma } from '../src/models/PrismaClient';
 
 // Define type for customization options
 type CustomizationOption = {
@@ -9,19 +9,19 @@ type CustomizationOption = {
 async function generateBeverageData(): Promise<void> {
   // Define beverage categories
   const categories = [
-    { name: "Coffee", description: "Freshly brewed coffee drinks", imageUrl: "https://example.com/coffee.jpg" },
-    { name: "Tea", description: "Variety of tea options", imageUrl: "https://example.com/tea.jpg" },
-    { name: "Smoothies", description: "Fruit and vegetable smoothies", imageUrl: "https://example.com/smoothies.jpg" },
-    { name: "Juices", description: "Freshly squeezed juices", imageUrl: "https://example.com/juices.jpg" },
-    { name: "Specialty Drinks", description: "Signature specialty beverages", imageUrl: "https://example.com/specialty.jpg" }
+    { name: 'Coffee', description: 'Freshly brewed coffee drinks', imageUrl: 'https://example.com/coffee.jpg' },
+    { name: 'Tea', description: 'Variety of tea options', imageUrl: 'https://example.com/tea.jpg' },
+    { name: 'Smoothies', description: 'Fruit and vegetable smoothies', imageUrl: 'https://example.com/smoothies.jpg' },
+    { name: 'Juices', description: 'Freshly squeezed juices', imageUrl: 'https://example.com/juices.jpg' },
+    { name: 'Specialty Drinks', description: 'Signature specialty beverages', imageUrl: 'https://example.com/specialty.jpg' },
   ];
 
   // Create beverage categories
-  console.log("Creating beverage categories...");
+  console.log('Creating beverage categories...');
   const createdCategories = [];
   for (const category of categories) {
     const createdCategory = await prisma.beverageCategory.create({
-      data: category
+      data: category,
     });
     createdCategories.push(createdCategory);
     console.log(`Created category: ${category.name}`);
@@ -29,33 +29,33 @@ async function generateBeverageData(): Promise<void> {
 
   // Define beverage names for each category
   const beveragesByCategory = {
-    "Coffee": [
-      "Espresso", "Americano", "Cappuccino", "Latte", "Mocha", "Macchiato", 
-      "Cold Brew", "Flat White", "Affogato", "Irish Coffee"
+    'Coffee': [
+      'Espresso', 'Americano', 'Cappuccino', 'Latte', 'Mocha', 'Macchiato', 
+      'Cold Brew', 'Flat White', 'Affogato', 'Irish Coffee',
     ],
-    "Tea": [
-      "Green Tea", "Black Tea", "Oolong Tea", "Chai Tea", "Earl Grey", 
-      "Chamomile", "Peppermint Tea", "Matcha Latte", "Bubble Tea", "Jasmine Tea"
+    'Tea': [
+      'Green Tea', 'Black Tea', 'Oolong Tea', 'Chai Tea', 'Earl Grey', 
+      'Chamomile', 'Peppermint Tea', 'Matcha Latte', 'Bubble Tea', 'Jasmine Tea',
     ],
-    "Smoothies": [
-      "Berry Blast", "Tropical Paradise", "Green Machine", "Banana Boost", 
-      "Mango Tango", "Strawberry Delight", "Pineapple Punch", "Blueberry Bliss", 
-      "Kale Kickstart", "Protein Power"
+    'Smoothies': [
+      'Berry Blast', 'Tropical Paradise', 'Green Machine', 'Banana Boost', 
+      'Mango Tango', 'Strawberry Delight', 'Pineapple Punch', 'Blueberry Bliss', 
+      'Kale Kickstart', 'Protein Power',
     ],
-    "Juices": [
-      "Orange Juice", "Apple Juice", "Carrot Juice", "Watermelon Juice", 
-      "Pineapple Juice", "Grapefruit Juice", "Celery Juice", "Beet Juice", 
-      "Cucumber Juice", "Mixed Fruit Juice"
+    'Juices': [
+      'Orange Juice', 'Apple Juice', 'Carrot Juice', 'Watermelon Juice', 
+      'Pineapple Juice', 'Grapefruit Juice', 'Celery Juice', 'Beet Juice', 
+      'Cucumber Juice', 'Mixed Fruit Juice',
     ],
-    "Specialty Drinks": [
-      "Caramel Frappuccino", "Vanilla Bean Frappe", "Chocolate Milkshake", 
-      "Strawberry Milkshake", "Iced Matcha Latte", "Coconut Water", "Horchata", 
-      "Boba Milk Tea", "Lavender Latte", "Turmeric Golden Milk"
-    ]
+    'Specialty Drinks': [
+      'Caramel Frappuccino', 'Vanilla Bean Frappe', 'Chocolate Milkshake', 
+      'Strawberry Milkshake', 'Iced Matcha Latte', 'Coconut Water', 'Horchata', 
+      'Boba Milk Tea', 'Lavender Latte', 'Turmeric Golden Milk',
+    ],
   };
 
   // Create beverages
-  console.log("Creating beverages...");
+  console.log('Creating beverages...');
   const createdBeverages = [];
   for (const category of createdCategories) {
     const beverageNames = beveragesByCategory[category.name as keyof typeof beveragesByCategory];
@@ -72,11 +72,11 @@ async function generateBeverageData(): Promise<void> {
         imageUrl: `https://example.com/${name.toLowerCase().replace(/\s+/g, '-')}.jpg`,
         isPopular,
         isNew,
-        categoryId: category.id
+        categoryId: category.id,
       };
 
       const createdBeverage = await prisma.beverage.create({
-        data: beverage
+        data: beverage,
       });
       createdBeverages.push(createdBeverage);
       console.log(`Created beverage: ${beverage.name}`);
@@ -84,50 +84,50 @@ async function generateBeverageData(): Promise<void> {
   }
 
   // Create customizations for each beverage
-  console.log("Creating beverage customizations...");
+  console.log('Creating beverage customizations...');
   const customizationTypes = [
     {
-      type: "size",
+      type: 'size',
       options: [
-        { name: "Small", price: 0 },
-        { name: "Medium", price: 1 },
-        { name: "Large", price: 2 }
-      ]
+        { name: 'Small', price: 0 },
+        { name: 'Medium', price: 1 },
+        { name: 'Large', price: 2 },
+      ],
     },
     {
-      type: "temperature",
+      type: 'temperature',
       options: [
-        { name: "Hot", price: 0 },
-        { name: "Iced", price: 0.5 }
-      ]
+        { name: 'Hot', price: 0 },
+        { name: 'Iced', price: 0.5 },
+      ],
     },
     {
-      type: "sweetness",
+      type: 'sweetness',
       options: [
-        { name: "Unsweetened", price: 0 },
-        { name: "Half Sweet", price: 0 },
-        { name: "Normal Sweet", price: 0 },
-        { name: "Extra Sweet", price: 0.5 }
-      ]
+        { name: 'Unsweetened', price: 0 },
+        { name: 'Half Sweet', price: 0 },
+        { name: 'Normal Sweet', price: 0 },
+        { name: 'Extra Sweet', price: 0.5 },
+      ],
     },
     {
-      type: "add-in",
+      type: 'add-in',
       options: [
-        { name: "Boba", price: 1 },
-        { name: "Aloe Vera", price: 1 },
-        { name: "Grass Jelly", price: 1 },
-        { name: "Coconut Jelly", price: 1 }
-      ]
-    }
+        { name: 'Boba', price: 1 },
+        { name: 'Aloe Vera', price: 1 },
+        { name: 'Grass Jelly', price: 1 },
+        { name: 'Coconut Jelly', price: 1 },
+      ],
+    },
   ];
 
   for (const beverage of createdBeverages) {
     // Not all customizations apply to all beverages
-    const applicableCustomizations = customizationTypes.filter(c => {
-      if (c.type === "add-in" && !beverage.name.includes("Tea") && !beverage.name.includes("Smoothie")) {
+    const applicableCustomizations = customizationTypes.filter((c) => {
+      if (c.type === 'add-in' && !beverage.name.includes('Tea') && !beverage.name.includes('Smoothie')) {
         return false;
       }
-      if (c.type === "temperature" && beverage.name.includes("Smoothie") || beverage.name.includes("Juice")) {
+      if (c.type === 'temperature' && beverage.name.includes('Smoothie') || beverage.name.includes('Juice')) {
         return false;
       }
       return true;
@@ -139,21 +139,21 @@ async function generateBeverageData(): Promise<void> {
           name: `${customization.type.charAt(0).toUpperCase() + customization.type.slice(1)}`,
           type: customization.type,
           options: customization.options,
-          beverageId: beverage.id
-        }
+          beverageId: beverage.id,
+        },
       });
       console.log(`Created customization: ${customization.type} for ${beverage.name}`);
     }
   }
 
   // Create some orders and order items
-  console.log("Creating orders and order items...");
-  const customerNames = ["John Doe", "Jane Smith", "Bob Johnson", "Alice Williams", "Charlie Brown"];
-  const customerEmails = ["john@example.com", "jane@example.com", "bob@example.com", "alice@example.com", "charlie@example.com"];
-  const customerPhones = ["+886912345678", "+886923456789", "+886934567890", "+886945678901", "+886956789012"];
-  const paymentMethods = ["Credit Card", "Cash", "Mobile Payment"];
-  const orderStatuses = ["pending", "preparing", "ready", "completed", "cancelled"];
-  const paymentStatuses = ["unpaid", "paid", "refunded"];
+  console.log('Creating orders and order items...');
+  const customerNames = ['John Doe', 'Jane Smith', 'Bob Johnson', 'Alice Williams', 'Charlie Brown'];
+  const customerEmails = ['john@example.com', 'jane@example.com', 'bob@example.com', 'alice@example.com', 'charlie@example.com'];
+  const customerPhones = ['+886912345678', '+886923456789', '+886934567890', '+886945678901', '+886956789012'];
+  const paymentMethods = ['Credit Card', 'Cash', 'Mobile Payment'];
+  const orderStatuses = ['pending', 'preparing', 'ready', 'completed', 'cancelled'];
+  const paymentStatuses = ['unpaid', 'paid', 'refunded'];
 
   // Create 100 orders
   for (let i = 0; i < 100; i++) {
@@ -176,7 +176,7 @@ async function generateBeverageData(): Promise<void> {
 
       // Add random customizations
       const customizationData = await prisma.beverageCustomization.findMany({
-        where: { beverageId: beverage.id }
+        where: { beverageId: beverage.id },
       });
 
       for (const customization of customizationData) {
@@ -185,7 +185,7 @@ async function generateBeverageData(): Promise<void> {
         customizations.push({
           type: customization.type,
           option: selectedOption.name,
-          price: selectedOption.price
+          price: selectedOption.price,
         });
         totalAmount += selectedOption.price * quantity;
       }
@@ -197,7 +197,7 @@ async function generateBeverageData(): Promise<void> {
         quantity,
         price: beverage.price,
         customizations,
-        notes: Math.random() > 0.7 ? "Extra hot please" : null
+        notes: Math.random() > 0.7 ? 'Extra hot please' : null,
       });
     }
 
@@ -212,24 +212,24 @@ async function generateBeverageData(): Promise<void> {
         paymentMethod: paymentMethods[Math.floor(Math.random() * paymentMethods.length)],
         paymentStatus: paymentStatuses[Math.floor(Math.random() * paymentStatuses.length)],
         items: {
-          create: orderItems.map(item => ({
+          create: orderItems.map((item) => ({
             beverageId: item.beverageId,
             quantity: item.quantity,
             price: item.price,
             customizations: item.customizations,
-            notes: item.notes
-          }))
-        }
-      }
+            notes: item.notes,
+          })),
+        },
+      },
     });
 
     console.log(`Created order #${order.id} with ${orderItems.length} items, total: $${totalAmount.toFixed(2)}`);
   }
 
   // Create some group orders
-  console.log("Creating group orders...");
-  const groupNames = ["Office Lunch", "Team Meeting", "Birthday Party", "Study Group", "Family Gathering"];
-  const creatorNames = ["Team Lead", "Manager", "Birthday Person", "Group Organizer", "Family Member"];
+  console.log('Creating group orders...');
+  const groupNames = ['Office Lunch', 'Team Meeting', 'Birthday Party', 'Study Group', 'Family Gathering'];
+  const creatorNames = ['Team Lead', 'Manager', 'Birthday Person', 'Group Organizer', 'Family Member'];
 
   for (let i = 0; i < 10; i++) {
     const nameIndex = Math.floor(Math.random() * groupNames.length);
@@ -247,16 +247,16 @@ async function generateBeverageData(): Promise<void> {
         shareCode,
         creatorName: `${creatorNames[nameIndex]} ${i + 1}`,
         expiresAt,
-        status: Math.random() > 0.2 ? "active" : "completed"
-      }
+        status: Math.random() > 0.2 ? 'active' : 'completed',
+      },
     });
 
     console.log(`Created group order: ${groupOrder.name} with share code: ${groupOrder.shareCode}`);
   }
 
   // Create some cart items
-  console.log("Creating cart items...");
-  const sessionIds = ["session1", "session2", "session3", "session4", "session5"];
+  console.log('Creating cart items...');
+  const sessionIds = ['session1', 'session2', 'session3', 'session4', 'session5'];
 
   for (let i = 0; i < 20; i++) {
     const sessionId = sessionIds[Math.floor(Math.random() * sessionIds.length)];
@@ -265,7 +265,7 @@ async function generateBeverageData(): Promise<void> {
 
     const customizations = [];
     const customizationData = await prisma.beverageCustomization.findMany({
-      where: { beverageId }
+      where: { beverageId },
     });
 
     for (const customization of customizationData) {
@@ -274,7 +274,7 @@ async function generateBeverageData(): Promise<void> {
       customizations.push({
         type: customization.type,
         option: selectedOption.name,
-        price: selectedOption.price
+        price: selectedOption.price,
       });
     }
 
@@ -284,20 +284,20 @@ async function generateBeverageData(): Promise<void> {
         beverageId,
         quantity,
         customizations,
-        notes: Math.random() > 0.7 ? "No ice please" : null
-      }
+        notes: Math.random() > 0.7 ? 'No ice please' : null,
+      },
     });
 
     console.log(`Created cart item for session: ${sessionId}, beverage ID: ${beverageId}`);
   }
 
-  console.log("Successfully created all beverage-related mock data!");
+  console.log('Successfully created all beverage-related mock data!');
 }
 
 generateBeverageData().then(() => {
-  console.log("Data generation complete!");
+  console.log('Data generation complete!');
   process.exit(0);
-}).catch(error => {
-  console.error("Error generating data:", error);
+}).catch((error) => {
+  console.error('Error generating data:', error);
   process.exit(1);
 });

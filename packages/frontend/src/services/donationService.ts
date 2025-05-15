@@ -30,7 +30,7 @@ export const donationService = {
   createDonation: async (donation: DonationRequest): Promise<DonationResponse> => {
     // Simulate API call delay
     await new Promise(resolve => setTimeout(resolve, 1500));
-    
+
     // Mock successful response
     return {
       id: Math.floor(Math.random() * 1000),
@@ -40,13 +40,13 @@ export const donationService = {
       donorEmail: donation.donorEmail,
       paymentStatus: 'completed',
       transactionId: `txn_${Date.now()}`,
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
     };
-    
+
     // In a real implementation, we would call the API:
     // return await apiService.post('/api/v1/donations', donation);
   },
-  
+
   /**
    * Get a donation by ID
    * @param id The donation ID
@@ -55,11 +55,11 @@ export const donationService = {
   getDonation: async (id: number): Promise<DonationResponse> => {
     // This would be implemented when we have a real backend
     throw new Error('Not implemented');
-    
+
     // In a real implementation:
     // return await apiService.get(`/api/v1/donations/${id}`);
   },
-  
+
   /**
    * Get all donations for an organization
    * @param organizationId The organization ID
@@ -68,8 +68,8 @@ export const donationService = {
   getOrganizationDonations: async (organizationId: number): Promise<DonationResponse[]> => {
     // This would be implemented when we have a real backend
     throw new Error('Not implemented');
-    
+
     // In a real implementation:
     // return await apiService.get(`/api/v1/organizations/${organizationId}/donations`);
-  }
+  },
 };

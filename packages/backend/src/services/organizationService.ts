@@ -1,5 +1,5 @@
-import { OrganizationRepository } from "../repositories/organizationRepository";
-import { organizations } from "@prisma/client"
+import { OrganizationRepository } from '../repositories/organizationRepository';
+import { organizations } from '@prisma/client';
 
 /**
  * Retrieves a list of organizations from the database with a specified limit and offset.
@@ -24,11 +24,11 @@ async function getOrganizations(limit: number = 10, offset: number = 0): Promise
  */
 async function searchOrganizations(searchTerm: string,
   similarityThreshold: number,
-  pageSize: number,): Promise<Array<organizations>> {
+  pageSize: number): Promise<Array<organizations>> {
   return await OrganizationRepository.searchOrganizations(searchTerm, similarityThreshold, pageSize);
 }
 
 export const OrganizationService = {
   getOrganizations,
-  searchOrganizations
-}
+  searchOrganizations,
+};

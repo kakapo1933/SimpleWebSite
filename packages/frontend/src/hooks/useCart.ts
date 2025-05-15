@@ -34,23 +34,26 @@ export const useCart = (): UseCartReturn => {
     }
   }, []);
 
-  const removeFromCart = useCallback(async (itemId: string) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await beverageApiService.removeFromCart(itemId);
-      if (response.success) {
-        await fetchCartItems();
-      } else {
-        setError(response.message || 'Failed to remove item from cart');
+  const removeFromCart = useCallback(
+    async (itemId: string) => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const response = await beverageApiService.removeFromCart(itemId);
+        if (response.success) {
+          await fetchCartItems();
+        } else {
+          setError(response.message || 'Failed to remove item from cart');
+        }
+      } catch (err) {
+        setError('An error occurred while removing item from cart');
+        console.error('Error removing item from cart:', err);
+      } finally {
+        setIsLoading(false);
       }
-    } catch (err) {
-      setError('An error occurred while removing item from cart');
-      console.error('Error removing item from cart:', err);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [fetchCartItems]);
+    },
+    [fetchCartItems]
+  );
 
   const clearCart = useCallback(async () => {
     setIsLoading(true);
@@ -76,6 +79,6 @@ export const useCart = (): UseCartReturn => {
     error,
     fetchCartItems,
     removeFromCart,
-    clearCart
+    clearCart,
   };
 };

@@ -73,7 +73,7 @@ router.post('/', async (req, res) => {
         paymentMethod: paymentMethod || undefined,
         groupOrderId: groupOrderId ? Number(groupOrderId) : undefined,
         items: {
-          create: items.map(item => ({
+          create: items.map((item) => ({
             beverageId: Number(item.beverageId),
             quantity: Number(item.quantity),
             price: Number(item.price),

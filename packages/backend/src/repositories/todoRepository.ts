@@ -8,7 +8,7 @@ import type { Todo } from '@prisma/client';
  */
 const findAll = async (): Promise<Array<Todo>> => {
   return await prisma.todo.findMany({
-    orderBy: { createdAt: 'desc' }
+    orderBy: { createdAt: 'desc' },
   });
 };
 
@@ -20,7 +20,7 @@ const findAll = async (): Promise<Array<Todo>> => {
  */
 const findById = async (id: number): Promise<Todo | null> => {
   return await prisma.todo.findUnique({
-    where: { id }
+    where: { id },
   });
 };
 
@@ -41,7 +41,7 @@ const create = async (data: {
   dueDate?: Date;
 }): Promise<Todo> => {
   return await prisma.todo.create({
-    data
+    data,
   });
 };
 
@@ -61,7 +61,7 @@ const update = async (id: number, data: {
 }): Promise<Todo> => {
   return await prisma.todo.update({
     where: { id },
-    data
+    data,
   });
 };
 
@@ -73,14 +73,14 @@ const update = async (id: number, data: {
  */
 const toggleStatus = async (id: number): Promise<Todo | null> => {
   const todo = await prisma.todo.findUnique({
-    where: { id }
+    where: { id },
   });
 
   if (!todo) return null;
 
   return await prisma.todo.update({
     where: { id },
-    data: { completed: !todo.completed }
+    data: { completed: !todo.completed },
   });
 };
 
@@ -92,7 +92,7 @@ const toggleStatus = async (id: number): Promise<Todo | null> => {
  */
 const remove = async (id: number): Promise<Todo> => {
   return await prisma.todo.delete({
-    where: { id }
+    where: { id },
   });
 };
 
@@ -102,5 +102,5 @@ export const TodoRepository = {
   create,
   update,
   toggleStatus,
-  remove
+  remove,
 };

@@ -10,4 +10,10 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
+    
+    html, body {
+        width: 100%;
+        min-width: 0;
+        overflow-x: hidden;
+    }
 }

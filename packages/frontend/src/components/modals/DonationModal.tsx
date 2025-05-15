@@ -21,14 +21,16 @@ export const DonationModal: React.FC<DonationModalProps> = ({
   organization,
   isOpen,
   onClose,
-  onDonate
+  onDonate,
 }) => {
   const [amount, setAmount] = useState<number>(25);
   const [customAmount, setCustomAmount] = useState<string>('');
   const [donorName, setDonorName] = useState<string>('');
   const [donorEmail, setDonorEmail] = useState<string>('');
   const [donorPhone, setDonorPhone] = useState<string>('');
-  const [paymentMethod, setPaymentMethod] = useState<'credit_card' | 'paypal' | 'bank_transfer'>('credit_card');
+  const [paymentMethod, setPaymentMethod] = useState<'credit_card' | 'paypal' | 'bank_transfer'>(
+    'credit_card'
+  );
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -77,7 +79,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({
         name: donorName,
         email: donorEmail,
         phone: donorPhone || undefined,
-        paymentMethod
+        paymentMethod,
       });
 
       // Reset form
@@ -99,18 +101,29 @@ export const DonationModal: React.FC<DonationModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
-        <div className="p-6">
-          <div className="flex justify-between items-center mb-4">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2 sm:p-4">
+      <div className="bg-white rounded-lg shadow-xl max-w-[95%] sm:max-w-md w-full max-h-[90vh] overflow-y-auto">
+        <div className="p-4 sm:p-6">
+          <div className="flex justify-between items-center mb-3 sm:mb-4">
             <h2 className="text-xl font-bold">Donate to {organization.name}</h2>
-            <button 
+            <button
               onClick={onClose}
               className="text-slate-500 hover:text-slate-700"
               aria-label="Close"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           </div>
@@ -122,12 +135,12 @@ export const DonationModal: React.FC<DonationModalProps> = ({
           )}
 
           <form onSubmit={handleSubmit}>
-            <div className="mb-6">
+            <div className="mb-4 sm:mb-6">
               <label className="block text-slate-950 font-medium mb-2">
                 Select Donation Amount
               </label>
-              <div className="grid grid-cols-3 gap-2 mb-2">
-                {DONATION_AMOUNTS.map((amt) => (
+              <div className="grid grid-cols-3 gap-1 sm:gap-2 my-3 sm:my-4">
+                {DONATION_AMOUNTS.map(amt => (
                   <button
                     key={amt}
                     type="button"
@@ -143,9 +156,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({
                 ))}
               </div>
               <div className="mt-2">
-                <label className="block text-slate-950 text-sm mb-1">
-                  Custom Amount
-                </label>
+                <label className="block text-slate-950 text-sm mb-1">Custom Amount</label>
                 <div className="relative">
                   <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-950">
                     $
@@ -155,33 +166,29 @@ export const DonationModal: React.FC<DonationModalProps> = ({
                     value={customAmount}
                     onChange={handleCustomAmountChange}
                     placeholder="Enter amount"
-                    className="w-full pl-8 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400"
+                    className="w-full px-3 sm:px-4 py-1.5 sm:py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400 text-sm sm:text-base"
                   />
                 </div>
               </div>
             </div>
 
             <div className="mb-4">
-              <label className="block text-slate-950 font-medium mb-2">
-                Your Name
-              </label>
+              <label className="block text-slate-950 font-medium mb-2">Your Name</label>
               <input
                 type="text"
                 value={donorName}
-                onChange={(e) => setDonorName(e.target.value)}
+                onChange={e => setDonorName(e.target.value)}
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400"
                 required
               />
             </div>
 
             <div className="mb-4">
-              <label className="block text-slate-950 font-medium mb-2">
-                Email Address
-              </label>
+              <label className="block text-slate-950 font-medium mb-2">Email Address</label>
               <input
                 type="email"
                 value={donorEmail}
-                onChange={(e) => setDonorEmail(e.target.value)}
+                onChange={e => setDonorEmail(e.target.value)}
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400"
                 required
               />
@@ -194,15 +201,13 @@ export const DonationModal: React.FC<DonationModalProps> = ({
               <input
                 type="tel"
                 value={donorPhone}
-                onChange={(e) => setDonorPhone(e.target.value)}
+                onChange={e => setDonorPhone(e.target.value)}
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400"
               />
             </div>
 
             <div className="mb-6">
-              <label className="block text-slate-950 font-medium mb-2">
-                Payment Method
-              </label>
+              <label className="block text-slate-950 font-medium mb-2">Payment Method</label>
               <div className="grid grid-cols-3 gap-2">
                 <button
                   type="button"
